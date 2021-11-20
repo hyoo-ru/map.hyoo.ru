@@ -39,6 +39,8 @@ $hyoo_map $mol_view
 				checked?val <=> photo?val false
 				Icon <= Photo_icon $mol_icon_terrain
 			<= Lights $mol_lights_toggle
+			<= Source $mol_link_source
+				uri \https://github.com/hyoo-ru/map.hyoo.ru/
 		<= Foot $mol_view sub <= foot /
 			<= OSM $mol_link_iconed
 				title \OSM
