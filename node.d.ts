@@ -2237,6 +2237,20 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_icon_github_circle extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_link_source extends $mol_link {
+        hint(): string;
+        sub(): readonly any[];
+        Icon(): $mol_icon_github_circle;
+    }
+}
+
+declare namespace $ {
     class $mol_image extends $mol_view {
         dom_name(): string;
         field(): {
@@ -2299,6 +2313,7 @@ declare namespace $ {
         Photo_icon(): $mol_icon_terrain;
         Photo(): $mol_check_icon;
         Lights(): $$.$mol_lights_toggle;
+        Source(): $mol_link_source;
         head(): readonly any[];
         Head(): $mol_view;
         OSM(): $$.$mol_link_iconed;
