@@ -1,0 +1,22 @@
+[hyoo_map] {
+	display: grid;
+}
+
+[hyoo_map] > * {
+	grid-area: 1/1;
+}
+
+[hyoo_map_pane] {
+	width: 100%;
+	filter: var(--mol_theme_image);
+}
+
+[hyoo_map_head] {
+	margin: var(--mol_gap_block);
+	margin-bottom: auto;
+}
+
+[hyoo_map_foot] {
+	margin-top: auto;
+	justify-content: flex-end;
+}
