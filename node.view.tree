@@ -1,0 +1,584 @@
+$mol_theme_auto $mol_plugin
+	attr * mol_theme <= theme \
+
+$mol_svg $mol_view
+	dom_name \svg
+	dom_name_space \http://www.w3.org/2000/svg
+	font_size 16
+	font_family \
+
+$mol_svg_group $mol_svg
+	dom_name \g
+
+$mol_svg_title $mol_svg
+	dom_name \title
+	sub /
+		<= title
+
+$mol_plot_graph $mol_svg_group
+	series_x /number
+	series_y /number
+	-
+	attr *
+		^
+		mol_plot_graph_type <= type \solid
+	-
+	style *
+		^
+		color <= color \
+	-
+	viewport $mol_vector_2d /
+		<= viewport_x $mol_vector_range /
+			Infinity
+			-Infinity
+		<= viewport_y $mol_vector_range /
+			Infinity
+			-Infinity
+	shift /number
+		0
+		0
+	scale /number
+		1
+		1
+	cursor_position $mol_vector_2d /
+		NaN
+		NaN
+	dimensions_pane $mol_vector_2d /
+		<= dimensions_pane_x $mol_vector_range /
+			Infinity
+			-Infinity
+		<= dimensions_pane_y $mol_vector_range /
+			Infinity
+			-Infinity
+	dimensions $mol_vector_2d /
+		<= dimensions_x $mol_vector_range /
+			Infinity
+			-Infinity
+		<= dimensions_y $mol_vector_range /
+			Infinity
+			-Infinity
+	size_real $mol_vector_2d /
+		0
+		0
+	gap $mol_vector_2d /
+		<= gap_x $mol_vector_range /
+			0
+			0
+		<= gap_y $mol_vector_range /
+			0
+			0
+	repos_x!val 0
+	repos_y!val 0
+	indexes /number
+	points /readonly(number)[]
+	front /$mol_svg
+	back /$mol_svg
+	Hint $mol_svg_title
+		title <= hint <= title \
+	hue NaN
+	Sample null
+
+$mol_plot_graph_sample $mol_view
+	attr *
+		^
+		mol_plot_graph_type <= type \solid
+	style *
+		^
+		color <= color \black
+
+$mol_svg_image $mol_svg
+	dom_name \image
+	pos /
+		0
+		0
+	size /
+		0
+		0
+	attr *
+		^
+		x <= pos_x \
+		y <= pos_y \
+		width <= size_x \
+		height <= size_y \
+		href <= uri \
+		preserveAspectRatio <= aspect \none
+
+$mol_plot_map_tiles $mol_plot_graph
+	tile_size_real 256
+	level 0
+	uri_template \
+	sub <= tiles /
+	Tile!id $mol_svg_image
+		uri <= tile_uri!id \
+		pos <= tile_pos!id /
+			0
+			0
+		size <= tile_size!id /
+			0
+			0
+
+$mol_svg_root $mol_svg
+	dom_name \svg
+	attr *
+		^
+		viewBox <= view_box \0 0 100 100
+		preserveAspectRatio <= aspect \xMidYMid
+
+$mol_touch $mol_plugin
+	start_zoom?val 0
+	start_distance?val 0
+	zoom?val 1
+	action_type?val \
+	action_point?val $mol_vector_2d /
+		NaN
+		NaN
+	-
+	start_pan?val /
+		0
+		0
+	pan?val $mol_vector_2d /
+		0
+		0
+	pointer_center $mol_vector_2d /
+		NaN
+		NaN
+	-
+	start_pos?val null
+	swipe_precision 16
+	-
+	swipe_right?val null
+	swipe_bottom?val null
+	swipe_left?val null
+	swipe_top?val null
+	-
+	swipe_from_right?val null
+	swipe_from_bottom?val null
+	swipe_from_left?val null
+	swipe_from_top?val null
+	-
+	swipe_to_right?val null
+	swipe_to_bottom?val null
+	swipe_to_left?val null
+	swipe_to_top?val null
+	-
+	draw?event null
+	-
+	style *
+		^
+		touch-action \none
+		overscroll-behavior \none
+	-
+	event *
+		^
+		pointerdown?event <=> event_start?event null
+		pointermove?event <=> event_move?event null
+		pointerup?event <=> event_end?event null
+		pointerleave?event <=> event_end?event null
+		wheel?event <=> event_wheel?event null
+		contextmenu?event <=> event_menu?event null
+
+$mol_plot_pane $mol_svg_root
+	aspect \none
+	-
+	hue_base?val NaN
+	hue_shift?val 111
+	-
+	gap_hor 48
+	gap_vert 24
+	gap_left <= gap_hor
+	gap_right <= gap_hor
+	gap_top <= gap_vert
+	gap_bottom <= gap_vert
+	gap $mol_vector_2d /
+		<= gap_x $mol_vector_range /
+			<= gap_left
+			<= gap_right
+		<= gap_y $mol_vector_range /
+			<= gap_bottom
+			<= gap_top
+	-
+	shift_limit $mol_vector_2d /
+		<= shift_limit_x $mol_vector_range /
+			0
+			0
+		<= shift_limit_y $mol_vector_range /
+			0
+			0
+	shift_default $mol_vector_2d /
+		0
+		0
+	shift?val $mol_vector_2d /
+		0
+		0
+	scale_limit $mol_vector_2d /
+		<= scale_limit_x $mol_vector_range /
+			0
+			Infinity
+		<= scale_limit_y $mol_vector_range /
+			0
+			-Infinity
+	scale_default $mol_vector_2d /
+		0
+		0
+	scale?val $mol_vector_2d /
+		1
+		-1
+	scale_x?val 1
+	scale_y?val -1
+	size $mol_vector_2d /
+		0
+		0
+	size_real $mol_vector_2d /
+		1
+		1
+	dimensions $mol_vector_2d /
+		<= dimensions_x $mol_vector_range /
+			Infinity
+			-Infinity
+		<= dimensions_y $mol_vector_range /
+			Infinity
+			-Infinity
+	dimensions_viewport $mol_vector_2d /
+		<= dimensions_viewport_x $mol_vector_range /
+			Infinity
+			-Infinity
+		<= dimensions_viewport_y $mol_vector_range /
+			Infinity
+			-Infinity
+	-
+	sub <= graphs_sorted /$mol_svg
+	graphs_colored <= graphs_positioned <= graphs_visible <= graphs /$mol_plot_graph
+	-
+	plugins /
+		^
+		<= Touch $mol_touch
+			zoom?val <=> zoom?val 1
+			pan?val <=> shift?val
+			pointer_center => cursor_position
+			action_type => action_type
+			action_point => action_point
+			draw?event <=> draw?event null
+	event *
+		^
+		dblclick?event <=> reset?event null
+
+$hyoo_map_pane $mol_plot_pane
+	gap_hor 0
+	gap_vert 0
+	scale?val $mol_vector_2d /
+		<= zoom
+		<= zoom
+
+$mol_scroll $mol_view
+	minimal_height 0
+	_event_scroll_timer?val null
+	field *
+		^
+		scrollTop <= scroll_top?val 0
+		scrollLeft <= scroll_left?val 0
+		tabIndex <= tabindex -1
+	event *
+		^
+		scroll?event <=> event_scroll?event null
+
+$mol_pop $mol_view
+	event * keydown?event <=> keydown?event null
+	showed?val false
+	align_vert \
+	align_hor \
+	sub /
+		<= Anchor null
+	sub_visible /
+		<= Anchor
+		<= Bubble $mol_pop_bubble
+			align <= align \bottom_center
+			content <= bubble_content /$mol_view_content
+			height_max <= height_max 9999
+
+$mol_pop_bubble $mol_scroll
+	sub <= content /$mol_view_content
+	style *
+		^
+		maxHeight <= height_max 9999
+	attr *
+		^
+		mol_pop_align <= align \
+		tabindex 0
+
+$mol_speck $mol_view
+	attr *
+		^
+		mol_theme \$mol_theme_accent
+	style *
+		^
+		minHeight \1em
+	sub /
+		<= value null
+
+$mol_button $mol_view
+	enabled true
+	minimal_height 40
+	minimal_width 40
+	click?event null
+	event_click?event null
+	event *
+		^
+		click?event <=> event_activate?event null
+		keydown?event <=> event_key_press?event null 
+	attr *
+		^
+		disabled <= disabled false
+		role \button
+		tabindex <= tab_index 0
+		title <= hint_or_error <= hint \
+	sub /$mol_view_content
+		<= title
+	Speck $mol_speck
+
+$mol_button_typed $mol_button
+
+$mol_button_minor $mol_button_typed
+
+$mol_hotkey $mol_plugin
+	event *
+		^
+		keydown?event <=> keydown?event null
+	key *
+	mod_ctrl false
+	mod_alt false
+	mod_shift false
+
+$mol_nav $mol_plugin
+	cycle?val false
+	-
+	mod_ctrl false
+	mod_shift false
+	mod_alt false
+	-
+	keys_x?val /
+	keys_y?val /
+	-
+	current_x?val null
+	current_y?val null
+	-
+	event_up?event null
+	event_down?event null
+	event_left?event null
+	event_right?event null
+	event *
+		^
+		keydown?event <=> event_key?event null
+
+$mol_string $mol_view
+	dom_name \input
+	enabled true
+	minimal_height 40
+	autocomplete false
+	selection?val /number
+	auto /
+		<= selection_watcher null
+	field *
+		^
+		disabled <= disabled false
+		value <= value_changed?val <=> value?val \
+		placeholder <= hint \ 
+		spellcheck <= spellcheck false
+		autocomplete <= autocomplete_native \
+		selectionEnd <= selection_end 0
+		selectionStart <= selection_start 0
+	attr *
+		^
+		maxlength <= length_max Infinity
+		type <= type?val \text
+	event *
+		^
+		input?event <=> event_change?event null
+		keydown?event <=> event_key_press?event null
+	plugins /
+		<= Submit $mol_hotkey
+			key * enter?event <=> submit?event null
+
+$mol_svg_path $mol_svg
+	dom_name \path
+	attr *
+		^
+		d <= geometry \
+
+
+$mol_icon $mol_svg_root
+	view_box \0 0 24 24
+	minimal_width 16
+	minimal_height 16
+	sub /
+		<= Path $mol_svg_path
+			geometry <= path \
+
+$mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
+
+$mol_list $mol_view
+	render_visible_only true
+	render_over 0
+	sub <= rows /$mol_view
+	Empty $mol_view
+	Gap_before $mol_view style * paddingTop <= gap_before 0
+	Gap_after $mol_view style * paddingTop <= gap_after 0
+	view_window /
+		0
+		0
+
+$mol_paragraph $mol_view
+	line_height 24
+	letter_width 7
+	width_limit Infinity
+	sub / <= title
+
+$mol_dimmer $mol_paragraph
+	haystack \
+	needle \
+	sub <= parts /$mol_view_content
+	Low!id $mol_paragraph
+		sub /
+			<= string!id \
+	High!id $mol_paragraph
+		sub /
+			<= string!id \
+
+$mol_search $mol_pop
+	query?val \
+	suggests /string
+	plugins /$mol_plugin
+		^
+		<= Hotkey $mol_hotkey
+			key * escape?val <=> clear?val null
+		<= Nav $mol_nav
+			keys_y <= nav_components /$mol_view
+			current_y?component <=> nav_focused?component null
+	showed?val <=> suggests_showed?val false
+	align_hor \right
+	Anchor $mol_view
+		sub <= anchor_content /
+			<= Query $mol_string
+				value?val <=> query?val \
+				hint <= hint @ \Search...
+				submit?event <=> submit?event null
+				enabled <= enabled true
+			<= Clear $mol_button_minor
+				hint @ \Clear
+				click?event <=> clear?event null
+				sub /
+					<= Clear_icon $mol_icon_cross
+	bubble_content /$mol_view_content
+		<= Menu $mol_list
+			rows <= menu_items /$mol_view
+	Suggest!id $mol_button_minor
+		click?event <=> suggest_select!id?event null
+		sub <= suggest_content!id /$mol_view_content
+			<= Suggest_label!id $mol_dimmer
+				haystack <= suggest_label!id \
+				needle <= query?val \
+
+$mol_icon_terrain $mol_icon path \M14,6L10.25,11L13.1,14.8L11.5,16C9.81,13.75 7,10 7,10L1,18H23L14,6Z
+
+$mol_check $mol_button_minor
+	attr *
+		^
+		mol_check_checked <= checked?val false
+		aria-checked <= checked?val false
+		role \checkbox
+	sub /$mol_view_content
+		<= Icon null
+		<= label /
+			<= Title $mol_view
+				sub /
+					<= title \
+
+$mol_check_icon $mol_check
+
+$mol_icon_brightness_6 $mol_icon path \M12,18V6C15.31,6 18,8.69 18,12C18,15.31 15.31,18 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z
+
+$mol_lights_toggle $mol_check_icon
+	Icon <= Lights_icon $mol_icon_brightness_6
+	hint @ \Toggle lights
+	checked?val <=> lights?val false
+
+$mol_link $mol_view
+	dom_name \a
+	attr *
+		^
+		href <= uri \
+		title <= hint \
+		target <= target \_self
+		download <= file_name \
+		mol_link_current <= current false
+	sub /$mol_view_content
+		<= title
+	arg *
+	event *
+		^
+		click?event <=> click?event <=> event_click?event null
+
+$mol_image $mol_view
+	dom_name \img
+	field *
+		^
+		src <= uri \
+		alt <= title
+		loading <= loading \lazy
+
+$mol_link_iconed $mol_link
+	sub /
+		<= Icon $mol_image
+			uri <= icon \
+			title \
+	content /
+		<= title <= uri
+	host \
+
+$hyoo_map $mol_view
+	plugins /
+		<= Theme $mol_theme_auto
+	tiles_options *
+		sketch \https://basemaps.cartocdn.com/rastertiles/voyager/{level}/{x}/{y}.png
+		photo \https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{level}/{y}/{x}
+	sub /
+		<= Pane $hyoo_map_pane
+			geo_to_tile_x!val => geo_to_tile_x!val
+			geo_to_tile_y!val => geo_to_tile_y!val
+			zoom?val <=> zoom?val 1
+			shift?val <=> center?val $mol_vector_2d /
+				0
+				0
+			graphs /
+				<= Tiles $mol_plot_map_tiles
+					tile_size_real <= tile_size 256
+					uri_template <= tiles_uri \
+				- <= Diag1 $mol_plot_group
+					repos_x!val <= geo_to_tile_x!val
+					repos_y!val <= geo_to_tile_y!val
+					graphs /
+						<= Track_line $mol_plot_line
+						<= Track_dot $mol_plot_dot
+					title \Saint-Petersburg - Moscow - Tokio
+					series_x /
+						30.32
+						37.62
+						139.69
+					series_y /
+						59.95
+						55.75
+						35.69
+		<= Head $mol_view sub <= head /
+			<= Search $mol_search
+				query?val <=> query?val \
+				submit?event <=> search?event null
+			<= Photo $mol_check_icon
+				checked?val <=> photo?val false
+				Icon <= Photo_icon $mol_icon_terrain
+			<= Lights $mol_lights_toggle
+		<= Foot $mol_view sub <= foot /
+			<= OSM $mol_link_iconed
+				title \OSM
+				uri \https://osm.org/copyright
+			<= CARTO $mol_link_iconed
+				title \CARTO
+				uri \https://carto.com/attributions
