@@ -3495,7 +3495,7 @@ var $;
     (function ($$) {
         class $mol_plot_map_tiles extends $.$mol_plot_map_tiles {
             level() {
-                return Math.max(0, Math.floor(Math.log2(this.scale()[0])));
+                return Math.max(0, Math.round(Math.log2(this.scale()[0])));
             }
             tiles() {
                 const level = this.level();
