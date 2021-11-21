@@ -3442,6 +3442,9 @@ var $;
         level() {
             return 0;
         }
+        level_pyramid() {
+            return 0;
+        }
         uri_template() {
             return "";
         }
@@ -3501,7 +3504,8 @@ var $;
                 const level = this.level();
                 const dims = this.dimensions_pane();
                 const tiles = [];
-                for (let l = 0; l <= level; ++l) {
+                const range = [level, Math.max(0, level + this.level_pyramid())].sort((a, b) => a - b);
+                for (let l = range[0]; l <= range[1]; ++l) {
                     const [xs, ys] = this.tile_at([l, dims.x.min, dims.y.min]);
                     const [xe, ye] = this.tile_at([l, dims.x.max, dims.y.max]);
                     for (let y = ys; y <= ye; ++y) {
@@ -7976,8 +7980,9 @@ var $;
         tiles_uri() {
             return "";
         }
-        Tiles() {
+        Tiles_low() {
             const obj = new this.$.$mol_plot_map_tiles();
+            obj.level_pyramid = () => -2;
             obj.tile_size_real = () => this.tile_size();
             obj.uri_template = () => this.tiles_uri();
             return obj;
@@ -7993,7 +7998,7 @@ var $;
             obj.zoom = (val) => this.zoom(val);
             obj.shift = (val) => this.center(val);
             obj.graphs = () => [
-                this.Tiles()
+                this.Tiles_low()
             ];
             return obj;
         }
@@ -8086,7 +8091,7 @@ var $;
     ], $hyoo_map.prototype, "center", null);
     __decorate([
         $.$mol_mem
-    ], $hyoo_map.prototype, "Tiles", null);
+    ], $hyoo_map.prototype, "Tiles_low", null);
     __decorate([
         $.$mol_mem
     ], $hyoo_map.prototype, "Pane", null);

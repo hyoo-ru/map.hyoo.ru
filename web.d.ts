@@ -901,6 +901,7 @@ declare namespace $ {
     class $mol_plot_map_tiles extends $mol_plot_graph {
         tile_size_real(): number;
         level(): number;
+        level_pyramid(): number;
         uri_template(): string;
         sub(): readonly any[];
         Tile(id: any): $$.$mol_svg_image;
@@ -2319,7 +2320,7 @@ declare namespace $ {
         center(val?: any): $mol_vector_2d<number>;
         tile_size(): number;
         tiles_uri(): string;
-        Tiles(): $$.$mol_plot_map_tiles;
+        Tiles_low(): $$.$mol_plot_map_tiles;
         geo_to_tile_x(val: any): number;
         geo_to_tile_y(val: any): number;
         Pane(): $$.$hyoo_map_pane;
