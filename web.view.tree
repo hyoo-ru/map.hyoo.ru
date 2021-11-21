@@ -110,13 +110,15 @@ $mol_plot_map_tiles $mol_plot_graph
 	uri_template \
 	sub <= tiles /
 	Tile!id $mol_svg_image
+		style *
+			transform <= tile_transform!id \
 		uri <= tile_uri!id \
-		pos <= tile_pos!id /
+		pos /
 			0
 			0
-		size <= tile_size!id /
-			0
-			0
+		size /
+			<= tile_size_real
+			<= tile_size_real
 
 $mol_svg_root $mol_svg
 	dom_name \svg
@@ -558,7 +560,7 @@ $hyoo_map $mol_view
 				0
 			graphs /
 				<= Tiles_low $mol_plot_map_tiles
-					level_pyramid -2
+					level_pyramid -20
 					tile_size_real <= tile_size 256
 					uri_template <= tiles_uri \
 				- <= Diag1 $mol_plot_group

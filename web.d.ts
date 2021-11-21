@@ -906,9 +906,8 @@ declare namespace $ {
         sub(): readonly any[];
         Tile(id: any): $$.$mol_svg_image;
         tiles(): readonly any[];
+        tile_transform(id: any): string;
         tile_uri(id: any): string;
-        tile_pos(id: any): readonly any[];
-        tile_size(id: any): readonly any[];
     }
 }
 
@@ -921,9 +920,8 @@ declare namespace $.$$ {
         level(): number;
         tiles(): $mol_svg_image[];
         tile_uri(id: Id): string;
-        tile_pos(id: Id): number[];
+        tile_transform(id: Id): string;
         tile_at(pos: [number, number, number]): number[];
-        tile_size(id: Id): number[];
     }
     export {};
 }

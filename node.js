@@ -3461,28 +3461,28 @@ var $;
         }
         Tile(id) {
             const obj = new this.$.$mol_svg_image();
+            obj.style = () => ({
+                transform: this.tile_transform(id)
+            });
             obj.uri = () => this.tile_uri(id);
-            obj.pos = () => this.tile_pos(id);
-            obj.size = () => this.tile_size(id);
+            obj.pos = () => [
+                0,
+                0
+            ];
+            obj.size = () => [
+                this.tile_size_real(),
+                this.tile_size_real()
+            ];
             return obj;
         }
         tiles() {
             return [];
         }
-        tile_uri(id) {
+        tile_transform(id) {
             return "";
         }
-        tile_pos(id) {
-            return [
-                0,
-                0
-            ];
-        }
-        tile_size(id) {
-            return [
-                0,
-                0
-            ];
+        tile_uri(id) {
+            return "";
         }
     }
     __decorate([
@@ -3495,7 +3495,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("mol/plot/map/tiles/tile.view.css", "[mol_plot_map_tiles_tile] {\n\ttransition: none;\n}\n");
+    $.$mol_style_attach("mol/plot/map/tiles/tile.view.css", "[mol_plot_map_tiles_tile] {\n\ttransition: none;\n\tanimation: mol_plot_map_tiles_tile_show .2s linear forwards;\n}\n\n@keyframes mol_plot_map_tiles_tile_show {\n\tfrom {\n\t\topacity: 0;\n\t}\n\tto {\n\t\topacity: 1;\n\t}\n}\n");
 })($ || ($ = {}));
 //tile.view.css.js.map
 ;
@@ -3532,16 +3532,16 @@ var $;
                     .replace('{x}', String((x % count + count) % count))
                     .replace('{y}', String((y % count + count) % count));
             }
-            tile_pos(id) {
+            tile_transform(id) {
                 const [level, x, y] = id;
                 const [shift_x, shift_y] = this.shift();
                 const [scale_x, scale_y] = this.scale();
                 const count = 1 << level;
                 const tile_size = this.tile_size_real();
-                return [
-                    Math.floor((x / count - .5) * tile_size * scale_x + shift_x),
-                    Math.floor((y / count - .5) * tile_size * scale_y + shift_y),
-                ];
+                const pos_x = Math.floor((x / count - .5) * tile_size * scale_x + shift_x);
+                const pos_y = Math.floor((y / count - .5) * tile_size * scale_y + shift_y);
+                const scale = scale_x / 2 ** level;
+                return `translate3d(${pos_x}px,${pos_y}px,0px) scale(${scale})`;
             }
             tile_at(pos) {
                 const [level, x, y] = pos;
@@ -3550,15 +3550,6 @@ var $;
                 return [
                     Math.floor((x / tile_size + .5) * count),
                     Math.floor((y / tile_size + .5) * count),
-                ];
-            }
-            tile_size(id) {
-                const [level] = id;
-                const [scale_x, scale_y] = this.scale();
-                const tile_size = this.tile_size_real();
-                return [
-                    Math.ceil(tile_size * scale_x / 2 ** level),
-                    Math.ceil(tile_size * scale_y / 2 ** level),
                 ];
             }
         }
@@ -3573,10 +3564,7 @@ var $;
         ], $mol_plot_map_tiles.prototype, "tile_uri", null);
         __decorate([
             $.$mol_mem_key
-        ], $mol_plot_map_tiles.prototype, "tile_pos", null);
-        __decorate([
-            $.$mol_mem_key
-        ], $mol_plot_map_tiles.prototype, "tile_size", null);
+        ], $mol_plot_map_tiles.prototype, "tile_transform", null);
         $$.$mol_plot_map_tiles = $mol_plot_map_tiles;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));
@@ -7990,7 +7978,7 @@ var $;
         }
         Tiles_low() {
             const obj = new this.$.$mol_plot_map_tiles();
-            obj.level_pyramid = () => -2;
+            obj.level_pyramid = () => -20;
             obj.tile_size_real = () => this.tile_size();
             obj.uri_template = () => this.tiles_uri();
             return obj;
