@@ -6798,7 +6798,7 @@ var $;
                     if (events.length > 0) {
                         if (event.ctrlKey)
                             return this.action_type('zoom');
-                        if (event.buttons === 2)
+                        if (event.buttons === 4)
                             return this.action_type('pan');
                         if (event.buttons === 1)
                             return this.action_type('draw');
@@ -6821,7 +6821,6 @@ var $;
                     return;
                 if (action_type === 'draw')
                     return;
-                event.preventDefault();
                 const coords = this.pointer_coords();
                 this.start_pos(coords.center());
                 this.start_distance(coords.distance());
