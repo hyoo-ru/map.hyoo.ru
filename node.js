@@ -8032,6 +8032,7 @@ var $;
         }
         Photo() {
             const obj = new this.$.$mol_check_icon();
+            obj.hint = () => this.$.$mol_locale.text('$hyoo_map_Photo_hint');
             obj.checked = (val) => this.photo(val);
             obj.Icon = () => this.Photo_icon();
             return obj;
