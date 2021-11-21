@@ -8030,6 +8030,12 @@ var $;
             obj.sub = () => this.head();
             return obj;
         }
+        ESRI() {
+            const obj = new this.$.$mol_link();
+            obj.title = () => "ESRI";
+            obj.uri = () => "https://www.esri.com/en-us/legal/terms/data-attributions";
+            return obj;
+        }
         OSM() {
             const obj = new this.$.$mol_link_iconed();
             obj.title = () => "OSM";
@@ -8044,6 +8050,7 @@ var $;
         }
         foot() {
             return [
+                this.ESRI(),
                 this.OSM(),
                 this.CARTO()
             ];
@@ -8096,6 +8103,9 @@ var $;
     __decorate([
         $.$mol_mem
     ], $hyoo_map.prototype, "Head", null);
+    __decorate([
+        $.$mol_mem
+    ], $hyoo_map.prototype, "ESRI", null);
     __decorate([
         $.$mol_mem
     ], $hyoo_map.prototype, "OSM", null);

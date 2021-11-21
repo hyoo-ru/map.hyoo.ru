@@ -2311,6 +2311,7 @@ declare namespace $ {
         Source(): $mol_link_source;
         head(): readonly any[];
         Head(): $mol_view;
+        ESRI(): $$.$mol_link;
         OSM(): $$.$mol_link_iconed;
         CARTO(): $$.$mol_link_iconed;
         foot(): readonly any[];
