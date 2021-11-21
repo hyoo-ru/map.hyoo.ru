@@ -14,7 +14,7 @@ $hyoo_map $mol_view
 				0
 			graphs /
 				<= Tiles_low $mol_plot_map_tiles
-					level_pyramid -2
+					level_pyramid -20
 					tile_size_real <= tile_size 256
 					uri_template <= tiles_uri \
 				- <= Diag1 $mol_plot_group
