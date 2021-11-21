@@ -22,6 +22,7 @@ $hyoo_map $mol_view
 				<= Pane $hyoo_map_pane
 					geo_to_tile_x!val => geo_to_tile_x!val
 					geo_to_tile_y!val => geo_to_tile_y!val
+					allow_draw false
 					zoom?val <=> zoom?val 1
 					shift?val <=> center?val $mol_vector_2d /
 						0
