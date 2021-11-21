@@ -44,6 +44,9 @@ $hyoo_map $mol_view
 			<= Source $mol_link_source
 				uri \https://github.com/hyoo-ru/map.hyoo.ru/
 		<= Foot $mol_view sub <= foot /
+			<= ESRI $mol_link
+				title \ESRI
+				uri \https://www.esri.com/en-us/legal/terms/data-attributions
 			<= OSM $mol_link_iconed
 				title \OSM
 				uri \https://osm.org/copyright
