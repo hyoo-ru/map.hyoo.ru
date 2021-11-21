@@ -74,5 +74,9 @@ namespace $.$$ {
 			return this.tiles_options()[ this.photo() ? 'photo' : 'sketch' ]
 		}
 		
+		theme() {
+			return this.photo() ? '$mol_theme_dark' : '$mol_theme_light'
+		}
+		
 	}
 }

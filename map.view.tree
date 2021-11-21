@@ -1,55 +1,58 @@
 $hyoo_map $mol_view
-	plugins /
-		<= Theme $mol_theme_auto
+	attr *
+		mol_theme <= theme \$mol_theme_light
 	tiles_options *
 		sketch \https://basemaps.cartocdn.com/rastertiles/voyager/{level}/{x}/{y}.png
 		photo \https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{level}/{y}/{x}
 	sub /
-		<= Pane $hyoo_map_pane
-			geo_to_tile_x!val => geo_to_tile_x!val
-			geo_to_tile_y!val => geo_to_tile_y!val
-			zoom?val <=> zoom?val 1
-			shift?val <=> center?val $mol_vector_2d /
-				0
-				0
-			graphs /
-				<= Tiles_low $mol_plot_map_tiles
-					level_pyramid -20
-					tile_size_real <= tile_size 256
-					uri_template <= tiles_uri \
-				- <= Diag1 $mol_plot_group
-					repos_x!val <= geo_to_tile_x!val
-					repos_y!val <= geo_to_tile_y!val
+		<= Main $mol_page
+			head /
+				<= Search $mol_search
+					query?val <=> query?val \
+					submit?event <=> search?event null
+				<= Photo $mol_check_icon
+					hint @ \Real Photos
+					checked?val <=> photo?val false
+					Icon <= Photo_icon $mol_icon_terrain
+				<= Source $mol_link_source
+					uri \https://github.com/hyoo-ru/map.hyoo.ru/
+			Head => Main_head
+			sub /
+				<= Main_head
+				<= Pane $hyoo_map_pane
+					geo_to_tile_x!val => geo_to_tile_x!val
+					geo_to_tile_y!val => geo_to_tile_y!val
+					zoom?val <=> zoom?val 1
+					shift?val <=> center?val $mol_vector_2d /
+						0
+						0
 					graphs /
-						<= Track_line $mol_plot_line
-						<= Track_dot $mol_plot_dot
-					title \Saint-Petersburg - Moscow - Tokio
-					series_x /
-						30.32
-						37.62
-						139.69
-					series_y /
-						59.95
-						55.75
-						35.69
-		<= Head $mol_view sub <= head /
-			<= Search $mol_search
-				query?val <=> query?val \
-				submit?event <=> search?event null
-			<= Photo $mol_check_icon
-				hint @ \Real Photos
-				checked?val <=> photo?val false
-				Icon <= Photo_icon $mol_icon_terrain
-			<= Lights $mol_lights_toggle
-			<= Source $mol_link_source
-				uri \https://github.com/hyoo-ru/map.hyoo.ru/
-		<= Foot $mol_view sub <= foot /
-			<= ESRI $mol_link
-				title \ESRI
-				uri \https://www.esri.com/en-us/legal/terms/data-attributions
-			<= OSM $mol_link_iconed
-				title \OSM
-				uri \https://osm.org/copyright
-			<= CARTO $mol_link_iconed
-				title \CARTO
-				uri \https://carto.com/attributions
+						<= Tiles_low $mol_plot_map_tiles
+							level_pyramid -20
+							tile_size_real <= tile_size 256
+							uri_template <= tiles_uri \
+						- <= Diag1 $mol_plot_group
+							repos_x!val <= geo_to_tile_x!val
+							repos_y!val <= geo_to_tile_y!val
+							graphs /
+								<= Track_line $mol_plot_line
+								<= Track_dot $mol_plot_dot
+							title \Saint-Petersburg - Moscow - Tokio
+							series_x /
+								30.32
+								37.62
+								139.69
+							series_y /
+								59.95
+								55.75
+								35.69
+				<= Attribution $mol_view sub /
+					<= ESRI $mol_link
+						title \ESRI
+						uri \https://www.esri.com/en-us/legal/terms/data-attributions
+					<= OSM $mol_link_iconed
+						title \OSM
+						uri \https://osm.org/copyright
+					<= CARTO $mol_link_iconed
+						title \CARTO
+						uri \https://carto.com/attributions

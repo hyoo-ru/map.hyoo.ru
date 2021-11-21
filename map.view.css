@@ -6,17 +6,26 @@
 	grid-area: 1/1;
 }
 
+[hyoo_map_main] {
+	display: grid;
+}
+
+[hyoo_map_main_head] {
+	grid-area: 1 / 1;
+	flex-wrap: nowrap;
+	margin-bottom: auto;
+	background: none;
+	box-shadow: none;
+}
+
 [hyoo_map_pane] {
 	width: 100%;
-	filter: var(--mol_theme_image);
+	grid-area: 1 / 1;
 }
 
-[hyoo_map_head] {
-	margin: var(--mol_gap_block);
-	margin-bottom: auto;
-}
-
-[hyoo_map_foot] {
+[hyoo_map_attribution] {
+	grid-area: 1 / 1;
 	margin-top: auto;
-	justify-content: flex-end;
+	margin-left: auto;
+	padding: var(--mol_gap_block);
 }
