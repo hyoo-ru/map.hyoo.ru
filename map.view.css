@@ -8,6 +8,7 @@
 
 [hyoo_map_main] {
 	display: grid;
+	contain: strict;
 }
 
 [hyoo_map_main_head] {
