@@ -7929,9 +7929,9 @@ var $;
         tiles_uri() {
             return "";
         }
-        Tiles_low() {
+        Tiles() {
             const obj = new this.$.$mol_plot_map_tiles();
-            obj.level_pyramid = () => -20;
+            obj.level_pyramid = () => -3;
             obj.tile_size_real = () => this.tile_size();
             obj.uri_template = () => this.tiles_uri();
             return obj;
@@ -7948,7 +7948,7 @@ var $;
             obj.zoom = (val) => this.zoom(val);
             obj.shift = (val) => this.center(val);
             obj.graphs = () => [
-                this.Tiles_low()
+                this.Tiles()
             ];
             return obj;
         }
@@ -8026,7 +8026,7 @@ var $;
     ], $hyoo_map.prototype, "center", null);
     __decorate([
         $.$mol_mem
-    ], $hyoo_map.prototype, "Tiles_low", null);
+    ], $hyoo_map.prototype, "Tiles", null);
     __decorate([
         $.$mol_mem
     ], $hyoo_map.prototype, "Pane", null);

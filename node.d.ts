@@ -2278,7 +2278,7 @@ declare namespace $ {
         center(val?: any): $mol_vector_2d<number>;
         tile_size(): number;
         tiles_uri(): string;
-        Tiles_low(): $$.$mol_plot_map_tiles;
+        Tiles(): $$.$mol_plot_map_tiles;
         geo_to_tile_x(val: any): number;
         geo_to_tile_y(val: any): number;
         Pane(): $$.$hyoo_map_pane;
