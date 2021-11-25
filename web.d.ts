@@ -2021,6 +2021,7 @@ declare namespace $ {
         tile_size_real(): number;
         level(): number;
         level_pyramid(): number;
+        tiles_limit(): number;
         uri_template(): string;
         sub(): readonly any[];
         Tile(id: any): $$.$mol_svg_image;
@@ -2041,6 +2042,8 @@ declare namespace $.$$ {
         tile_uri(id: Id): string;
         tile_transform(id: Id): string;
         tile_at(pos: [number, number, number]): number[];
+        back(): readonly $.$mol_svg[];
+        front(): never[];
     }
     export {};
 }
