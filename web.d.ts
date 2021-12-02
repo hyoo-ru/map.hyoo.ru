@@ -1759,6 +1759,12 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_icon_lead_pencil extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
     class $mol_link extends $mol_view {
         dom_name(): string;
         attr(): {
@@ -1827,6 +1833,45 @@ declare namespace $.$$ {
         file_name(): string;
         minimal_height(): number;
         target(): '_self' | '_blank' | '_top' | '_parent' | string;
+    }
+}
+
+declare namespace $ {
+    class $mol_image extends $mol_view {
+        dom_name(): string;
+        field(): {
+            src: string;
+            alt: string;
+            loading: string;
+        };
+        uri(): string;
+        loading(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_link_iconed extends $mol_link {
+        sub(): readonly any[];
+        content(): readonly any[];
+        host(): string;
+        icon(): string;
+        Icon(): $mol_image;
+        title(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_link_iconed extends $.$mol_link_iconed {
+        icon(): string;
+        host(): string;
+        title(): string;
+        sub(): readonly any[];
     }
 }
 
@@ -2226,45 +2271,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_image extends $mol_view {
-        dom_name(): string;
-        field(): {
-            src: string;
-            alt: string;
-            loading: string;
-        };
-        uri(): string;
-        loading(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    class $mol_link_iconed extends $mol_link {
-        sub(): readonly any[];
-        content(): readonly any[];
-        host(): string;
-        icon(): string;
-        Icon(): $mol_image;
-        title(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $.$$ {
-    class $mol_link_iconed extends $.$mol_link_iconed {
-        icon(): string;
-        host(): string;
-        title(): string;
-        sub(): any[];
-    }
-}
-
-declare namespace $ {
     class $mol_page extends $mol_view {
         sub(): readonly any[];
         Title(): $mol_view;
@@ -2306,6 +2312,9 @@ declare namespace $ {
         photo(val?: any): boolean;
         Photo_icon(): $mol_icon_terrain;
         Photo(): $mol_check_icon;
+        draw_uri(): string;
+        Draw_icon(): $mol_icon_lead_pencil;
+        Draw(): $$.$mol_link_iconed;
         Source(): $mol_link_source;
         zoom(val?: any): number;
         center(val?: any): $mol_vector_2d<number>;
@@ -2433,6 +2442,7 @@ declare namespace $.$$ {
         zoom_limit(): $mol_vector_range<number>;
         zoom(next?: number): number;
         search(): void;
+        draw_uri(): string;
         tiles_uri(): string;
         theme(): "$mol_theme_light" | "$mol_theme_dark";
     }
