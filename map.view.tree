@@ -14,6 +14,11 @@ $hyoo_map $mol_view
 					hint @ \Real Photos
 					checked?val <=> photo?val false
 					Icon <= Photo_icon $mol_icon_terrain
+				<= Draw $mol_link_iconed
+					hint @ \Draw on map
+					uri <= draw_uri \https://draw.hyoo.ru/#!map=true/zoom={zoom}/center={center}
+					sub /
+						<= Draw_icon $mol_icon_lead_pencil
 				<= Source $mol_link_source
 					uri \https://github.com/hyoo-ru/map.hyoo.ru/
 			Head => Main_head

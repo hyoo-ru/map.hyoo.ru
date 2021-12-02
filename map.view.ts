@@ -70,6 +70,13 @@ namespace $.$$ {
 			
 		}
 		
+		@ $mol_mem
+		draw_uri() {
+			return super.draw_uri()
+				.replace( '{zoom}', this.$.$mol_state_arg.value( 'zoom' ) ?? '' )
+				.replace( '{center}', this.$.$mol_state_arg.value( 'center' ) ?? '' )
+		}
+		
 		tiles_uri() {
 			return this.tiles_options()[ this.photo() ? 'photo' : 'sketch' ]
 		}
