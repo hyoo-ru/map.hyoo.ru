@@ -107,6 +107,9 @@ var $;
 //mol/type/assert/assert.ts
 ;
 "use strict";
+//mol/type/equals/equals.test.ts
+;
+"use strict";
 //mol/type/partial/deep/deep.test.ts
 ;
 "use strict";
@@ -598,6 +601,76 @@ var $;
 ;
 "use strict";
 var $;
+(function ($) {
+    function $mol_log3_area_lazy(event) {
+        const self = this;
+        const stack = self.$mol_log3_stack;
+        const deep = stack.length;
+        let logged = false;
+        stack.push(() => {
+            logged = true;
+            self.$mol_log3_area.call(self, event);
+        });
+        return () => {
+            if (logged)
+                self.console.groupEnd();
+            if (stack.length > deep)
+                stack.length = deep;
+        };
+    }
+    $.$mol_log3_area_lazy = $mol_log3_area_lazy;
+    $.$mol_log3_stack = [];
+})($ || ($ = {}));
+//mol/log3/log3.ts
+;
+"use strict";
+//mol/type/keys/extract/extract.test.ts
+;
+"use strict";
+var $;
+(function ($_1) {
+    $mol_test_mocks.push($ => {
+        $.$mol_log3_come = () => { };
+        $.$mol_log3_done = () => { };
+        $.$mol_log3_fail = () => { };
+        $.$mol_log3_warn = () => { };
+        $.$mol_log3_rise = () => { };
+        $.$mol_log3_area = () => () => { };
+    });
+})($ || ($ = {}));
+//mol/log3/log3.test.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_log3_web_make(level, color) {
+        return function $mol_log3_logger(event) {
+            const pending = this.$mol_log3_stack.pop();
+            if (pending)
+                pending();
+            let tpl = '%c';
+            const chunks = Object.values(event);
+            for (let i = 0; i < chunks.length; ++i) {
+                tpl += (typeof chunks[i] === 'string') ? ' ⦙ %s' : ' ⦙ %o';
+            }
+            const style = `color:${color};font-weight:bolder`;
+            this.console[level](tpl, style, ...chunks);
+            const self = this;
+            return () => self.console.groupEnd();
+        };
+    }
+    $.$mol_log3_web_make = $mol_log3_web_make;
+    $.$mol_log3_come = $mol_log3_web_make('info', 'royalblue');
+    $.$mol_log3_done = $mol_log3_web_make('info', 'forestgreen');
+    $.$mol_log3_fail = $mol_log3_web_make('error', 'orangered');
+    $.$mol_log3_warn = $mol_log3_web_make('warn', 'goldenrod');
+    $.$mol_log3_rise = $mol_log3_web_make('log', 'magenta');
+    $.$mol_log3_area = $mol_log3_web_make('group', 'cyan');
+})($ || ($ = {}));
+//mol/log3/log3.web.ts
+;
+"use strict";
+var $;
 (function ($_1) {
     $mol_test_mocks.push($ => {
         $.$mol_after_tick = $mol_after_mock_commmon;
@@ -835,6 +908,52 @@ var $;
     });
 })($ || ($ = {}));
 //mol/wire/fiber/fiber.test.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_promise() {
+        let done;
+        let fail;
+        const promise = new Promise((d, f) => {
+            done = d;
+            fail = f;
+        });
+        return Object.assign(promise, {
+            done,
+            fail,
+        });
+    }
+    $.$mol_promise = $mol_promise;
+})($ || ($ = {}));
+//mol/promise/promise.ts
+;
+"use strict";
+var $;
+(function ($_1) {
+    $mol_test_mocks.push($ => {
+        $.$mol_after_timeout = $mol_after_mock_timeout;
+    });
+})($ || ($ = {}));
+//mol/after/timeout/timeout.test.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function $mol_wait_timeout_async(timeout) {
+        const promise = $mol_promise();
+        const task = new this.$mol_after_timeout(timeout, () => promise.done());
+        return Object.assign(promise, {
+            destructor: () => task.destructor()
+        });
+    }
+    $.$mol_wait_timeout_async = $mol_wait_timeout_async;
+    function $mol_wait_timeout(timeout) {
+        return this.$mol_wire_sync(this).$mol_wait_timeout_async(timeout);
+    }
+    $.$mol_wait_timeout = $mol_wait_timeout;
+})($ || ($ = {}));
+//mol/wait/timeout/timeout.ts
 ;
 "use strict";
 var $;
@@ -1587,7 +1706,65 @@ var $;
 //mol/func/name/name.test.ts
 ;
 "use strict";
-//mol/type/keys/extract/extract.test.ts
+var $;
+(function ($) {
+    class $mol_wire_log extends $mol_object2 {
+        static watch(task) {
+            return task;
+        }
+        static track(fiber) {
+            const prev = $mol_wire_probe(() => this.track(fiber));
+            let next;
+            try {
+                next = fiber.sync();
+            }
+            finally {
+                for (const pub of fiber.pub_list) {
+                    if (pub instanceof $mol_wire_fiber) {
+                        this.track(pub);
+                    }
+                }
+            }
+            if (prev !== undefined && !$mol_compare_deep(prev, next)) {
+                this.$.$mol_log3_rise({
+                    message: 'Changed',
+                    place: fiber,
+                });
+            }
+            return next;
+        }
+        static active() {
+            try {
+                this.watch()?.();
+            }
+            finally {
+                for (const pub of $mol_wire_auto().pub_list) {
+                    if (pub instanceof $mol_wire_fiber) {
+                        this.track(pub);
+                    }
+                }
+            }
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_wire_log, "watch", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_wire_log, "track", null);
+    __decorate([
+        $mol_mem
+    ], $mol_wire_log, "active", null);
+    $.$mol_wire_log = $mol_wire_log;
+})($ || ($ = {}));
+//mol/wire/log/log.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_wire_log.active();
+})($ || ($ = {}));
+//mol/wire/wire.test.ts
 ;
 "use strict";
 var $;
@@ -2034,18 +2211,6 @@ var $;
     });
 })($ || ($ = {}));
 //mol/charset/encode/encode.test.ts
-;
-"use strict";
-var $;
-(function ($_1) {
-    $mol_test_mocks.push($ => {
-        $.$mol_after_timeout = $mol_after_mock_timeout;
-    });
-})($ || ($ = {}));
-//mol/after/timeout/timeout.test.ts
-;
-"use strict";
-//mol/type/equals/equals.test.ts
 ;
 "use strict";
 //mol/type/merge/merge.test.ts
@@ -2517,303 +2682,6 @@ var $;
     });
 })($ || ($ = {}));
 //mol/vector/vector.test.ts
-;
-"use strict";
-//mol/type/param/param.test.ts
-;
-"use strict";
-//mol/type/tail/tail.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
-        'config by value'() {
-            const N = $mol_data_setup((a) => a, 5);
-            $mol_assert_equal(N.config, 5);
-        },
-    });
-})($ || ($ = {}));
-//mol/data/setup/setup.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
-        'function'() {
-            $mol_assert_not($mol_func_is_class(function () { }));
-        },
-        'generator'() {
-            $mol_assert_not($mol_func_is_class(function* () { }));
-        },
-        'async'() {
-            $mol_assert_not($mol_func_is_class(async function () { }));
-        },
-        'arrow'() {
-            $mol_assert_not($mol_func_is_class(() => null));
-        },
-        'named class'() {
-            $mol_assert_ok($mol_func_is_class(class Foo {
-            }));
-        },
-        'unnamed class'() {
-            $mol_assert_ok($mol_func_is_class(class {
-            }));
-        },
-    });
-})($ || ($ = {}));
-//mol/func/is/class/class.test.ts
-;
-"use strict";
-//mol/type/foot/foot.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
-        'single function'() {
-            const stringify = $mol_data_pipe((input) => input.toString());
-            $mol_assert_equal(stringify(5), '5');
-        },
-        'two functions'() {
-            const isLong = $mol_data_pipe((input) => input.toString(), (input) => input.length > 2);
-            $mol_assert_equal(isLong(5.0), false);
-            $mol_assert_equal(isLong(5.1), true);
-        },
-        'three functions'() {
-            const pattern = $mol_data_pipe((input) => input.toString(), (input) => new RegExp(input), (input) => input.toString());
-            $mol_assert_equal(pattern(5), '/5/');
-        },
-        'classes'() {
-            class Box {
-                value;
-                constructor(value) {
-                    this.value = value;
-                }
-            }
-            const boxify = $mol_data_pipe((input) => input.toString(), Box);
-            $mol_assert_ok(boxify(5) instanceof Box);
-            $mol_assert_like(boxify(5).value, '5');
-        },
-    });
-})($ || ($ = {}));
-//mol/data/pipe/pipe.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
-        'equal paths'() {
-            const diff = $mol_diff_path([1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4]);
-            $mol_assert_like(diff, {
-                prefix: [1, 2, 3, 4],
-                suffix: [[], [], []],
-            });
-        },
-        'different suffix'() {
-            const diff = $mol_diff_path([1, 2, 3, 4], [1, 2, 3, 5], [1, 2, 5, 4]);
-            $mol_assert_like(diff, {
-                prefix: [1, 2],
-                suffix: [[3, 4], [3, 5], [5, 4]],
-            });
-        },
-        'one contains other'() {
-            const diff = $mol_diff_path([1, 2, 3, 4], [1, 2], [1, 2, 3]);
-            $mol_assert_like(diff, {
-                prefix: [1, 2],
-                suffix: [[3, 4], [], [3]],
-            });
-        },
-        'fully different'() {
-            const diff = $mol_diff_path([1, 2], [3, 4], [5, 6]);
-            $mol_assert_like(diff, {
-                prefix: [],
-                suffix: [[1, 2], [3, 4], [5, 6]],
-            });
-        },
-    });
-})($ || ($ = {}));
-//mol/diff/path/path.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
-        'Is string'() {
-            $mol_data_string('');
-        },
-        'Is not string'() {
-            $mol_assert_fail(() => {
-                $mol_data_string(0);
-            }, '0 is not a string');
-        },
-        'Is object string'() {
-            $mol_assert_fail(() => {
-                $mol_data_string(new String('x'));
-            }, 'x is not a string');
-        },
-    });
-})($ || ($ = {}));
-//mol/data/string/string.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
-        'Is number'() {
-            $mol_data_number(0);
-        },
-        'Is not number'() {
-            $mol_assert_fail(() => {
-                $mol_data_number('x');
-            }, 'x is not a number');
-        },
-        'Is object number'() {
-            $mol_assert_fail(() => {
-                $mol_data_number(new Number(''));
-            }, '0 is not a number');
-        },
-    });
-})($ || ($ = {}));
-//mol/data/number/number.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_data_number = (val) => {
-        if (typeof val === 'number')
-            return val;
-        return $mol_fail(new $mol_data_error(`${val} is not a number`));
-    };
-})($ || ($ = {}));
-//mol/data/number/number.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
-        'Is empty array'() {
-            $mol_data_array($mol_data_number)([]);
-        },
-        'Is array'() {
-            $mol_data_array($mol_data_number)([1, 2]);
-        },
-        'Is not array'() {
-            $mol_assert_fail(() => {
-                $mol_data_array($mol_data_number)({ [0]: 1, length: 1, map: () => { } });
-            }, '[object Object] is not an array');
-        },
-        'Has wrong item'() {
-            $mol_assert_fail(() => {
-                $mol_data_array($mol_data_number)([1, '1']);
-            }, '[1] 1 is not a number');
-        },
-        'Has wrong deep item'() {
-            $mol_assert_fail(() => {
-                $mol_data_array($mol_data_array($mol_data_number))([[], [0, 0, false]]);
-            }, '[1] [2] false is not a number');
-        },
-    });
-})($ || ($ = {}));
-//mol/data/array/array.test.ts
-;
-"use strict";
-//mol/type/partial/undefined/undefined.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
-        'Fit to record'() {
-            const User = $mol_data_record({ age: $mol_data_number });
-            User({ age: 0 });
-        },
-        'Extends record'() {
-            const User = $mol_data_record({ age: $mol_data_number });
-            User({ age: 0, name: 'Jin' });
-        },
-        'Shrinks record'() {
-            $mol_assert_fail(() => {
-                const User = $mol_data_record({ age: $mol_data_number, name: $mol_data_string });
-                User({ age: 0 });
-            }, '["name"] undefined is not a string');
-        },
-        'Shrinks deep record'() {
-            $mol_assert_fail(() => {
-                const User = $mol_data_record({ wife: $mol_data_record({ age: $mol_data_number }) });
-                User({ wife: {} });
-            }, '["wife"] ["age"] undefined is not a number');
-        },
-    });
-})($ || ($ = {}));
-//mol/data/record/record.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_log3_area_lazy(event) {
-        const self = this;
-        const stack = self.$mol_log3_stack;
-        const deep = stack.length;
-        let logged = false;
-        stack.push(() => {
-            logged = true;
-            self.$mol_log3_area.call(self, event);
-        });
-        return () => {
-            if (logged)
-                self.console.groupEnd();
-            if (stack.length > deep)
-                stack.length = deep;
-        };
-    }
-    $.$mol_log3_area_lazy = $mol_log3_area_lazy;
-    $.$mol_log3_stack = [];
-})($ || ($ = {}));
-//mol/log3/log3.ts
-;
-"use strict";
-var $;
-(function ($_1) {
-    $mol_test_mocks.push($ => {
-        $.$mol_log3_come = () => { };
-        $.$mol_log3_done = () => { };
-        $.$mol_log3_fail = () => { };
-        $.$mol_log3_warn = () => { };
-        $.$mol_log3_rise = () => { };
-        $.$mol_log3_area = () => () => { };
-    });
-})($ || ($ = {}));
-//mol/log3/log3.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    function $mol_log3_web_make(level, color) {
-        return function $mol_log3_logger(event) {
-            const pending = this.$mol_log3_stack.pop();
-            if (pending)
-                pending();
-            let tpl = '%c';
-            const chunks = Object.values(event);
-            for (let i = 0; i < chunks.length; ++i) {
-                tpl += (typeof chunks[i] === 'string') ? ' ⦙ %s' : ' ⦙ %o';
-            }
-            const style = `color:${color};font-weight:bolder`;
-            this.console[level](tpl, style, ...chunks);
-            const self = this;
-            return () => self.console.groupEnd();
-        };
-    }
-    $.$mol_log3_web_make = $mol_log3_web_make;
-    $.$mol_log3_come = $mol_log3_web_make('info', 'royalblue');
-    $.$mol_log3_done = $mol_log3_web_make('info', 'forestgreen');
-    $.$mol_log3_fail = $mol_log3_web_make('error', 'orangered');
-    $.$mol_log3_warn = $mol_log3_web_make('warn', 'goldenrod');
-    $.$mol_log3_rise = $mol_log3_web_make('log', 'magenta');
-    $.$mol_log3_area = $mol_log3_web_make('group', 'cyan');
-})($ || ($ = {}));
-//mol/log3/log3.web.ts
 ;
 "use strict";
 var $;
@@ -3710,101 +3578,233 @@ var $;
 //mol/view/tree/tree.ts
 ;
 "use strict";
+//mol/type/param/param.test.ts
+;
+"use strict";
+//mol/type/tail/tail.test.ts
+;
+"use strict";
 var $;
 (function ($) {
-    class $mol_wire_log extends $mol_object2 {
-        static watch(task) {
-            return task;
-        }
-        static track(fiber) {
-            const prev = $mol_wire_probe(() => this.track(fiber));
-            let next;
-            try {
-                next = fiber.sync();
-            }
-            finally {
-                for (const pub of fiber.pub_list) {
-                    if (pub instanceof $mol_wire_fiber) {
-                        this.track(pub);
-                    }
+    $mol_test({
+        'config by value'() {
+            const N = $mol_data_setup((a) => a, 5);
+            $mol_assert_equal(N.config, 5);
+        },
+    });
+})($ || ($ = {}));
+//mol/data/setup/setup.test.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        'function'() {
+            $mol_assert_not($mol_func_is_class(function () { }));
+        },
+        'generator'() {
+            $mol_assert_not($mol_func_is_class(function* () { }));
+        },
+        'async'() {
+            $mol_assert_not($mol_func_is_class(async function () { }));
+        },
+        'arrow'() {
+            $mol_assert_not($mol_func_is_class(() => null));
+        },
+        'named class'() {
+            $mol_assert_ok($mol_func_is_class(class Foo {
+            }));
+        },
+        'unnamed class'() {
+            $mol_assert_ok($mol_func_is_class(class {
+            }));
+        },
+    });
+})($ || ($ = {}));
+//mol/func/is/class/class.test.ts
+;
+"use strict";
+//mol/type/foot/foot.test.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        'single function'() {
+            const stringify = $mol_data_pipe((input) => input.toString());
+            $mol_assert_equal(stringify(5), '5');
+        },
+        'two functions'() {
+            const isLong = $mol_data_pipe((input) => input.toString(), (input) => input.length > 2);
+            $mol_assert_equal(isLong(5.0), false);
+            $mol_assert_equal(isLong(5.1), true);
+        },
+        'three functions'() {
+            const pattern = $mol_data_pipe((input) => input.toString(), (input) => new RegExp(input), (input) => input.toString());
+            $mol_assert_equal(pattern(5), '/5/');
+        },
+        'classes'() {
+            class Box {
+                value;
+                constructor(value) {
+                    this.value = value;
                 }
             }
-            if (prev !== undefined && !$mol_compare_deep(prev, next)) {
-                this.$.$mol_log3_rise({
-                    message: 'Changed',
-                    place: fiber,
-                });
-            }
-            return next;
-        }
-        static active() {
-            try {
-                this.watch()?.();
-            }
-            finally {
-                for (const pub of $mol_wire_auto().pub_list) {
-                    if (pub instanceof $mol_wire_fiber) {
-                        this.track(pub);
-                    }
-                }
-            }
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_wire_log, "watch", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_wire_log, "track", null);
-    __decorate([
-        $mol_mem
-    ], $mol_wire_log, "active", null);
-    $.$mol_wire_log = $mol_wire_log;
+            const boxify = $mol_data_pipe((input) => input.toString(), Box);
+            $mol_assert_ok(boxify(5) instanceof Box);
+            $mol_assert_like(boxify(5).value, '5');
+        },
+    });
 })($ || ($ = {}));
-//mol/wire/log/log.ts
+//mol/data/pipe/pipe.test.ts
 ;
 "use strict";
 var $;
 (function ($) {
-    $mol_wire_log.active();
+    $mol_test({
+        'equal paths'() {
+            const diff = $mol_diff_path([1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4]);
+            $mol_assert_like(diff, {
+                prefix: [1, 2, 3, 4],
+                suffix: [[], [], []],
+            });
+        },
+        'different suffix'() {
+            const diff = $mol_diff_path([1, 2, 3, 4], [1, 2, 3, 5], [1, 2, 5, 4]);
+            $mol_assert_like(diff, {
+                prefix: [1, 2],
+                suffix: [[3, 4], [3, 5], [5, 4]],
+            });
+        },
+        'one contains other'() {
+            const diff = $mol_diff_path([1, 2, 3, 4], [1, 2], [1, 2, 3]);
+            $mol_assert_like(diff, {
+                prefix: [1, 2],
+                suffix: [[3, 4], [], [3]],
+            });
+        },
+        'fully different'() {
+            const diff = $mol_diff_path([1, 2], [3, 4], [5, 6]);
+            $mol_assert_like(diff, {
+                prefix: [],
+                suffix: [[1, 2], [3, 4], [5, 6]],
+            });
+        },
+    });
 })($ || ($ = {}));
-//mol/wire/wire.test.ts
+//mol/diff/path/path.test.ts
 ;
 "use strict";
 var $;
 (function ($) {
-    function $mol_promise() {
-        let done;
-        let fail;
-        const promise = new Promise((d, f) => {
-            done = d;
-            fail = f;
-        });
-        return Object.assign(promise, {
-            done,
-            fail,
-        });
-    }
-    $.$mol_promise = $mol_promise;
+    $mol_test({
+        'Is string'() {
+            $mol_data_string('');
+        },
+        'Is not string'() {
+            $mol_assert_fail(() => {
+                $mol_data_string(0);
+            }, '0 is not a string');
+        },
+        'Is object string'() {
+            $mol_assert_fail(() => {
+                $mol_data_string(new String('x'));
+            }, 'x is not a string');
+        },
+    });
 })($ || ($ = {}));
-//mol/promise/promise.ts
+//mol/data/string/string.test.ts
 ;
 "use strict";
 var $;
 (function ($) {
-    function $mol_wait_timeout_async(timeout) {
-        const promise = $mol_promise();
-        const task = new this.$mol_after_timeout(timeout, () => promise.done());
-        return Object.assign(promise, {
-            destructor: () => task.destructor()
-        });
-    }
-    $.$mol_wait_timeout_async = $mol_wait_timeout_async;
-    function $mol_wait_timeout(timeout) {
-        return this.$mol_wire_sync(this).$mol_wait_timeout_async(timeout);
-    }
-    $.$mol_wait_timeout = $mol_wait_timeout;
+    $mol_test({
+        'Is number'() {
+            $mol_data_number(0);
+        },
+        'Is not number'() {
+            $mol_assert_fail(() => {
+                $mol_data_number('x');
+            }, 'x is not a number');
+        },
+        'Is object number'() {
+            $mol_assert_fail(() => {
+                $mol_data_number(new Number(''));
+            }, '0 is not a number');
+        },
+    });
 })($ || ($ = {}));
-//mol/wait/timeout/timeout.ts
+//mol/data/number/number.test.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_data_number = (val) => {
+        if (typeof val === 'number')
+            return val;
+        return $mol_fail(new $mol_data_error(`${val} is not a number`));
+    };
+})($ || ($ = {}));
+//mol/data/number/number.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        'Is empty array'() {
+            $mol_data_array($mol_data_number)([]);
+        },
+        'Is array'() {
+            $mol_data_array($mol_data_number)([1, 2]);
+        },
+        'Is not array'() {
+            $mol_assert_fail(() => {
+                $mol_data_array($mol_data_number)({ [0]: 1, length: 1, map: () => { } });
+            }, '[object Object] is not an array');
+        },
+        'Has wrong item'() {
+            $mol_assert_fail(() => {
+                $mol_data_array($mol_data_number)([1, '1']);
+            }, '[1] 1 is not a number');
+        },
+        'Has wrong deep item'() {
+            $mol_assert_fail(() => {
+                $mol_data_array($mol_data_array($mol_data_number))([[], [0, 0, false]]);
+            }, '[1] [2] false is not a number');
+        },
+    });
+})($ || ($ = {}));
+//mol/data/array/array.test.ts
+;
+"use strict";
+//mol/type/partial/undefined/undefined.test.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_test({
+        'Fit to record'() {
+            const User = $mol_data_record({ age: $mol_data_number });
+            User({ age: 0 });
+        },
+        'Extends record'() {
+            const User = $mol_data_record({ age: $mol_data_number });
+            User({ age: 0, name: 'Jin' });
+        },
+        'Shrinks record'() {
+            $mol_assert_fail(() => {
+                const User = $mol_data_record({ age: $mol_data_number, name: $mol_data_string });
+                User({ age: 0 });
+            }, '["name"] undefined is not a string');
+        },
+        'Shrinks deep record'() {
+            $mol_assert_fail(() => {
+                const User = $mol_data_record({ wife: $mol_data_record({ age: $mol_data_number }) });
+                User({ wife: {} });
+            }, '["wife"] ["age"] undefined is not a number');
+        },
+    });
+})($ || ($ = {}));
+//mol/data/record/record.test.ts
 
 //# sourceMappingURL=web.test.js.map
