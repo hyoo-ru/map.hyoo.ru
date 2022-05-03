@@ -2016,8 +2016,8 @@ declare namespace $ {
         dimensions(): $mol_vector_2d<$mol_vector_range<number>>;
         size_real(): $mol_vector_2d<number>;
         gap(): $mol_vector_2d<$mol_vector_range<number>>;
-        repos_x(val: any): number;
-        repos_y(val: any): number;
+        repos_x(id: any): number;
+        repos_y(id: any): number;
         indexes(): readonly number[];
         points(): readonly (readonly number[])[];
         front(): readonly $mol_svg[];
@@ -2346,8 +2346,8 @@ declare namespace $ {
         tile_size(): number;
         tiles_uri(): string;
         Tiles(): $$.$mol_plot_map_tiles;
-        geo_to_tile_x(val: any): number;
-        geo_to_tile_y(val: any): number;
+        geo_to_tile_x(id: any): number;
+        geo_to_tile_y(id: any): number;
         Pane(): $$.$hyoo_map_pane;
         ESRI(): $$.$mol_link;
         OSM(): $$.$mol_link_iconed;
