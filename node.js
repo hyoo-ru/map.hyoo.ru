@@ -8003,12 +8003,21 @@ var $;
         dom_name() {
             return "article";
         }
+        field() {
+            return {
+                ...super.field(),
+                tabIndex: this.tabindex()
+            };
+        }
         sub() {
             return [
                 this.Head(),
                 this.Body(),
                 this.Foot()
             ];
+        }
+        tabindex() {
+            return -1;
         }
         Title() {
             const obj = new this.$.$mol_view();
