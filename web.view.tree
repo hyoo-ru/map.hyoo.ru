@@ -148,7 +148,7 @@ $mol_string $mol_view
 		inputMode <= keyboard \text
 	attr *
 		^
-		maxlength <= length_max Infinity
+		maxlength <= length_max +Infinity
 		type <= type?val \text
 	event *
 		^
@@ -174,7 +174,7 @@ $mol_list $mol_view
 $mol_paragraph $mol_view
 	line_height 24
 	letter_width 7
-	width_limit Infinity
+	width_limit +Infinity
 	sub / <= title
 
 $mol_dimmer $mol_paragraph
@@ -353,7 +353,7 @@ $mol_plot_graph $mol_svg_group
 	back /$mol_svg
 	Hint $mol_svg_title
 		title <= hint <= title \
-	hue NaN
+	hue +NaN
 	Sample null
 
 $mol_plot_graph_sample $mol_view
@@ -459,7 +459,7 @@ $mol_touch $mol_plugin
 $mol_plot_pane $mol_svg_root
 	aspect \none
 	-
-	hue_base?val NaN
+	hue_base?val +NaN
 	hue_shift?val 111
 	-
 	gap_hor 48
