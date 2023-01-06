@@ -1815,6 +1815,12 @@ var $;
 //mol/wire/method/method.ts
 ;
 "use strict";
+//mol/type/tail/tail.ts
+;
+"use strict";
+//mol/type/foot/foot.ts
+;
+"use strict";
 var $;
 (function ($) {
     class $mol_wire_atom extends $mol_wire_fiber {
@@ -1867,6 +1873,20 @@ var $;
         }
         once() {
             return this.sync();
+        }
+        channel() {
+            return Object.assign((next) => {
+                if (next !== undefined)
+                    return this.resync([...this.args, next]);
+                if (!$mol_wire_fiber.warm)
+                    return this.result();
+                if ($mol_wire_auto() instanceof $mol_wire_task) {
+                    return this.once();
+                }
+                else {
+                    return this.sync();
+                }
+            }, { atom: this });
         }
         destructor() {
             super.destructor();
@@ -1921,9 +1941,6 @@ var $;
     $mol_wire_atom.watch();
 })($ || ($ = {}));
 //mol/wire/atom/atom.ts
-;
-"use strict";
-//mol/type/tail/tail.ts
 ;
 "use strict";
 var $;
@@ -8595,9 +8612,6 @@ var $;
 //mol/func/is/class/class.ts
 ;
 "use strict";
-//mol/type/foot/foot.ts
-;
-"use strict";
 var $;
 (function ($) {
     function $mol_data_pipe(...funcs) {
@@ -10869,6 +10883,9 @@ var $;
 //mol/key/key.test.tsx
 ;
 "use strict";
+//mol/type/foot/foot.test.ts
+;
+"use strict";
 var $;
 (function ($) {
     $mol_wire_log.active();
@@ -12339,9 +12356,6 @@ var $;
     });
 })($ || ($ = {}));
 //mol/func/is/class/class.test.ts
-;
-"use strict";
-//mol/type/foot/foot.test.ts
 ;
 "use strict";
 var $;
