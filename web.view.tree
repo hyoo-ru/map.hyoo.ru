@@ -1,17 +1,8 @@
-$mol_scroll $mol_view
-	scroll_top?val 0
-	scroll_left?val 0
-	field *
-		^
-		tabIndex <= tabindex -1
-	event *
-		^
-		scroll?event <=> event_scroll?event null
-
 $mol_pop $mol_view
 	showed?val false
 	align_vert \
 	align_hor \
+	prefer \vert
 	sub /
 		<= Anchor null
 	sub_visible /
@@ -21,7 +12,7 @@ $mol_pop $mol_view
 			content <= bubble_content /$mol_view_content
 			height_max <= height_max 9999
 
-$mol_pop_bubble $mol_scroll
+$mol_pop_bubble $mol_view
 	sub <= content /$mol_view_content
 	style *
 		^
@@ -30,6 +21,16 @@ $mol_pop_bubble $mol_scroll
 		^
 		mol_pop_align <= align \
 		tabindex 0
+
+$mol_scroll $mol_view
+	scroll_top?val 0
+	scroll_left?val 0
+	field *
+		^
+		tabIndex <= tabindex -1
+	event *
+		^
+		scroll?event <=> event_scroll?event null
 
 $mol_speck $mol_view
 	attr *
