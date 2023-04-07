@@ -233,9 +233,9 @@ $mol_icon_terrain $mol_icon path \M14,6L10.25,11L13.1,14.8L11.5,16C9.81,13.75 7,
 $mol_check $mol_button_minor
 	attr *
 		^
-		mol_check_checked <= checked?val false
-		aria-checked <= checked?val false
-		role \checkbox
+		mol_check_checked <= checked? false
+		aria-checked <= aria_checked \false
+		role <= aria_role \checkbox
 	sub /$mol_view_content
 		<= Icon null
 		<= label /
@@ -273,6 +273,12 @@ $mol_image $mol_view
 		loading <= loading \eager
 		decoding <= decoding \async
 		crossOrigin <= cors null
+	attr *
+		^
+		width <= natural_width? 0
+		height <= natural_height? 0
+	event *
+		load? <=> load? null
 	minimal_width 16
 	minimal_height 16
 
