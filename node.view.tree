@@ -1,5 +1,5 @@
 $mol_pop $mol_view
-	showed?val false
+	showed? false
 	align_vert \
 	align_hor \
 	prefer \vert
@@ -23,8 +23,8 @@ $mol_pop_bubble $mol_view
 		tabindex 0
 
 $mol_scroll $mol_view
-	scroll_top?val 0
-	scroll_left?val 0
+	scroll_top? 0
+	scroll_left? 0
 	field *
 		^
 		tabIndex <= tabindex -1
@@ -78,17 +78,17 @@ $mol_hotkey $mol_plugin
 	mod_shift false
 
 $mol_nav $mol_plugin
-	cycle?val false
+	cycle? false
 	-
 	mod_ctrl false
 	mod_shift false
 	mod_alt false
 	-
-	keys_x?val /
-	keys_y?val /
+	keys_x? /
+	keys_y? /
 	-
-	current_x?val null
-	current_y?val null
+	current_x? null
+	current_y? null
 	-
 	event_up?event null
 	event_down?event null
@@ -103,7 +103,7 @@ $mol_string $mol_view
 	enabled true
 	minimal_height 40
 	autocomplete false
-	selection?val /number
+	selection? /number
 		0
 		0
 	auto /
@@ -111,7 +111,7 @@ $mol_string $mol_view
 	field *
 		^
 		disabled <= disabled false
-		value <= value_changed?val <=> value?val \
+		value <= value_changed? <=> value? \
 		placeholder <= hint_visible <= hint \
 		spellcheck <= spellcheck true
 		autocomplete <= autocomplete_native \
@@ -122,7 +122,7 @@ $mol_string $mol_view
 	attr *
 		^
 		maxlength <= length_max +Infinity
-		type <= type?val \text
+		type <= type? \text
 	event *
 		^
 		input?event <=> event_change?event null
@@ -192,21 +192,21 @@ $mol_dimmer $mol_paragraph
 			<= string* \
 
 $mol_search $mol_pop
-	query?val \
+	query? \
 	suggests /string
 	plugins /$mol_plugin
 		^
 		<= Hotkey $mol_hotkey
-			key * escape?val <=> clear?val null
+			key * escape? <=> clear? null
 		<= Nav $mol_nav
 			keys_y <= nav_components /$mol_view
 			current_y?component <=> nav_focused?component null
-	showed?val <=> suggests_showed?val false
+	showed? <=> suggests_showed? false
 	align_hor \right
 	Anchor $mol_view
 		sub <= anchor_content /
 			<= Query $mol_string
-				value?val <=> query?val \
+				value? <=> query? \
 				hint <= hint @ \Search...
 				submit?event <=> submit?event null
 				enabled <= enabled true
@@ -226,7 +226,7 @@ $mol_search $mol_pop
 		sub <= suggest_content* /$mol_view_content
 			<= Suggest_label* $mol_dimmer
 				haystack <= suggest_label* \
-				needle <= query?val \
+				needle <= query? \
 
 $mol_icon_terrain $mol_icon path \M14,6L10.25,11L13.1,14.8L11.5,16C9.81,13.75 7,10 7,10L1,18H23L14,6Z
 
@@ -413,44 +413,44 @@ $mol_plot_map_tiles $mol_plot_graph
 			<= tile_size_real
 
 $mol_touch $mol_plugin
-	start_zoom?val 0
-	start_distance?val 0
-	zoom?val 1
+	start_zoom? 0
+	start_distance? 0
+	zoom? 1
 	allow_draw true
 	allow_pan true
 	allow_zoom true
-	action_type?val \
-	action_point?val $mol_vector_2d /
+	action_type? \
+	action_point? $mol_vector_2d /
 		NaN
 		NaN
 	-
-	start_pan?val /
+	start_pan? /
 		0
 		0
-	pan?val $mol_vector_2d /
+	pan? $mol_vector_2d /
 		0
 		0
 	pointer_center $mol_vector_2d /
 		NaN
 		NaN
 	-
-	start_pos?val null
+	start_pos? null
 	swipe_precision 16
 	-
-	swipe_right?val null
-	swipe_bottom?val null
-	swipe_left?val null
-	swipe_top?val null
+	swipe_right? null
+	swipe_bottom? null
+	swipe_left? null
+	swipe_top? null
 	-
-	swipe_from_right?val null
-	swipe_from_bottom?val null
-	swipe_from_left?val null
-	swipe_from_top?val null
+	swipe_from_right? null
+	swipe_from_bottom? null
+	swipe_from_left? null
+	swipe_from_top? null
 	-
-	swipe_to_right?val null
-	swipe_to_bottom?val null
-	swipe_to_left?val null
-	swipe_to_top?val null
+	swipe_to_right? null
+	swipe_to_bottom? null
+	swipe_to_left? null
+	swipe_to_top? null
 	-
 	draw_start?event null
 	draw?event null
@@ -472,8 +472,8 @@ $mol_touch $mol_plugin
 $mol_plot_pane $mol_svg_root
 	aspect \none
 	-
-	hue_base?val +NaN
-	hue_shift?val 111
+	hue_base? +NaN
+	hue_shift? 111
 	-
 	gap_hor 48
 	gap_vert 24
@@ -499,7 +499,7 @@ $mol_plot_pane $mol_svg_root
 	shift_default $mol_vector_2d /
 		0
 		0
-	shift?val $mol_vector_2d /
+	shift? $mol_vector_2d /
 		0
 		0
 	scale_limit $mol_vector_2d /
@@ -512,11 +512,11 @@ $mol_plot_pane $mol_svg_root
 	scale_default $mol_vector_2d /
 		0
 		0
-	scale?val $mol_vector_2d /
+	scale? $mol_vector_2d /
 		1
 		-1
-	scale_x?val 1
-	scale_y?val -1
+	scale_x? 1
+	scale_y? -1
 	size $mol_vector_2d /
 		0
 		0
@@ -544,8 +544,8 @@ $mol_plot_pane $mol_svg_root
 	plugins /
 		^
 		<= Touch $mol_touch
-			zoom?val <=> zoom?val 1
-			pan?val <=> shift?val
+			zoom? <=> zoom? 1
+			pan? <=> shift?
 			pointer_center => cursor_position
 			allow_draw <= allow_draw true
 			allow_pan <= allow_pan true
@@ -584,7 +584,7 @@ $mol_page $mol_view
 				<= Tools $mol_view
 					sub <= tools /$mol_view_content
 		<= Body $mol_scroll
-			scroll_top?val => body_scroll_top?val
+			scroll_top? => body_scroll_top?
 			sub <= body /$mol_view_content
 		<= Foot $mol_view
 			dom_name \footer

@@ -925,7 +925,7 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_pop extends $mol_view {
-        showed(val?: any): boolean;
+        showed(next?: any): boolean;
         align_vert(): string;
         align_hor(): string;
         prefer(): string;
@@ -962,8 +962,8 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_scroll extends $mol_view {
-        scroll_top(val?: any): number;
-        scroll_left(val?: any): number;
+        scroll_top(next?: any): number;
+        scroll_left(next?: any): number;
         field(): Record<string, any>;
         event(): Record<string, any>;
         tabindex(): number;
@@ -1384,14 +1384,14 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $mol_nav extends $mol_plugin {
-        cycle(val?: any): boolean;
+        cycle(next?: any): boolean;
         mod_ctrl(): boolean;
         mod_shift(): boolean;
         mod_alt(): boolean;
-        keys_x(val?: any): readonly any[];
-        keys_y(val?: any): readonly any[];
-        current_x(val?: any): any;
-        current_y(val?: any): any;
+        keys_x(next?: any): readonly any[];
+        keys_y(next?: any): readonly any[];
+        current_x(next?: any): any;
+        current_y(next?: any): any;
         event_up(event?: any): any;
         event_down(event?: any): any;
         event_left(event?: any): any;
@@ -1581,7 +1581,7 @@ declare namespace $ {
         enabled(): boolean;
         minimal_height(): number;
         autocomplete(): boolean;
-        selection(val?: any): readonly number[];
+        selection(next?: any): readonly number[];
         auto(): readonly any[];
         field(): Record<string, any>;
         attr(): Record<string, any>;
@@ -1589,8 +1589,8 @@ declare namespace $ {
         plugins(): readonly any[];
         selection_watcher(): any;
         disabled(): boolean;
-        value(val?: any): string;
-        value_changed(val?: any): string;
+        value(next?: any): string;
+        value_changed(next?: any): string;
         hint(): string;
         hint_visible(): string;
         spellcheck(): boolean;
@@ -1600,7 +1600,7 @@ declare namespace $ {
         keyboard(): string;
         enter(): string;
         length_max(): number;
-        type(val?: any): string;
+        type(next?: any): string;
         event_change(event?: any): any;
         submit_with_ctrl(): boolean;
         submit(event?: any): any;
@@ -1872,20 +1872,20 @@ declare namespace $ {
 
 declare namespace $ {
     class $mol_search extends $mol_pop {
-        query(val?: any): string;
+        query(next?: any): string;
         suggests(): readonly string[];
         plugins(): readonly $mol_plugin[];
-        showed(val?: any): boolean;
+        showed(next?: any): boolean;
         align_hor(): string;
         Anchor(): $mol_view;
         bubble_content(): readonly $mol_view_content[];
         Suggest(id: any): $mol_button_minor;
-        clear(val?: any): any;
+        clear(next?: any): any;
         Hotkey(): $$.$mol_hotkey;
         nav_components(): readonly $mol_view[];
         nav_focused(component?: any): any;
         Nav(): $$.$mol_nav;
-        suggests_showed(val?: any): boolean;
+        suggests_showed(next?: any): boolean;
         hint(): string;
         submit(event?: any): any;
         enabled(): boolean;
@@ -2304,31 +2304,31 @@ declare namespace $.$$ {
 
 declare namespace $ {
     class $mol_touch extends $mol_plugin {
-        start_zoom(val?: any): number;
-        start_distance(val?: any): number;
-        zoom(val?: any): number;
+        start_zoom(next?: any): number;
+        start_distance(next?: any): number;
+        zoom(next?: any): number;
         allow_draw(): boolean;
         allow_pan(): boolean;
         allow_zoom(): boolean;
-        action_type(val?: any): string;
-        action_point(val?: any): $mol_vector_2d<number>;
-        start_pan(val?: any): readonly any[];
-        pan(val?: any): $mol_vector_2d<number>;
+        action_type(next?: any): string;
+        action_point(next?: any): $mol_vector_2d<number>;
+        start_pan(next?: any): readonly any[];
+        pan(next?: any): $mol_vector_2d<number>;
         pointer_center(): $mol_vector_2d<number>;
-        start_pos(val?: any): any;
+        start_pos(next?: any): any;
         swipe_precision(): number;
-        swipe_right(val?: any): any;
-        swipe_bottom(val?: any): any;
-        swipe_left(val?: any): any;
-        swipe_top(val?: any): any;
-        swipe_from_right(val?: any): any;
-        swipe_from_bottom(val?: any): any;
-        swipe_from_left(val?: any): any;
-        swipe_from_top(val?: any): any;
-        swipe_to_right(val?: any): any;
-        swipe_to_bottom(val?: any): any;
-        swipe_to_left(val?: any): any;
-        swipe_to_top(val?: any): any;
+        swipe_right(next?: any): any;
+        swipe_bottom(next?: any): any;
+        swipe_left(next?: any): any;
+        swipe_top(next?: any): any;
+        swipe_from_right(next?: any): any;
+        swipe_from_bottom(next?: any): any;
+        swipe_from_left(next?: any): any;
+        swipe_from_top(next?: any): any;
+        swipe_to_right(next?: any): any;
+        swipe_to_bottom(next?: any): any;
+        swipe_to_left(next?: any): any;
+        swipe_to_top(next?: any): any;
         draw_start(event?: any): any;
         draw(event?: any): any;
         draw_end(event?: any): any;
@@ -2366,8 +2366,8 @@ declare namespace $.$$ {
 declare namespace $ {
     class $mol_plot_pane extends $mol_svg_root {
         aspect(): string;
-        hue_base(val?: any): number;
-        hue_shift(val?: any): number;
+        hue_base(next?: any): number;
+        hue_shift(next?: any): number;
         gap_hor(): number;
         gap_vert(): number;
         gap_left(): number;
@@ -2377,12 +2377,12 @@ declare namespace $ {
         gap(): $mol_vector_2d<$mol_vector_range<number>>;
         shift_limit(): $mol_vector_2d<$mol_vector_range<number>>;
         shift_default(): $mol_vector_2d<number>;
-        shift(val?: any): $mol_vector_2d<number>;
+        shift(next?: any): $mol_vector_2d<number>;
         scale_limit(): $mol_vector_2d<$mol_vector_range<number>>;
         scale_default(): $mol_vector_2d<number>;
-        scale(val?: any): $mol_vector_2d<number>;
-        scale_x(val?: any): number;
-        scale_y(val?: any): number;
+        scale(next?: any): $mol_vector_2d<number>;
+        scale_x(next?: any): number;
+        scale_y(next?: any): number;
         size(): $mol_vector_2d<number>;
         size_real(): $mol_vector_2d<number>;
         dimensions(): $mol_vector_2d<$mol_vector_range<number>>;
@@ -2404,7 +2404,7 @@ declare namespace $ {
         graphs(): readonly $mol_plot_graph[];
         graphs_positioned(): readonly $mol_plot_graph[];
         graphs_visible(): readonly $mol_plot_graph[];
-        zoom(val?: any): number;
+        zoom(next?: any): number;
         allow_draw(): boolean;
         allow_pan(): boolean;
         allow_zoom(): boolean;
@@ -2477,7 +2477,7 @@ declare namespace $ {
         head(): readonly any[];
         Head(): $mol_view;
         body(): readonly $mol_view_content[];
-        body_scroll_top(val?: any): number;
+        body_scroll_top(next?: any): number;
         Body(): $$.$mol_scroll;
         foot(): readonly $mol_view[];
         Foot(): $mol_view;
