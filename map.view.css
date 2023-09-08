@@ -1,5 +1,6 @@
 [hyoo_map] {
 	display: grid;
+	flex: 1 1 20rem;
 }
 
 [hyoo_map] > * {
