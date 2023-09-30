@@ -22,7 +22,7 @@ $hyoo_map $mol_view
 				<= Source $mol_link_source
 					uri \https://github.com/hyoo-ru/map.hyoo.ru/
 			Head => Main_head
-			sub /
+			sub <= main_sub /
 				<= Main_head
 				<= Pane $hyoo_map_pane
 					geo_to_tile_x!val => geo_to_tile_x!val
@@ -32,7 +32,7 @@ $hyoo_map $mol_view
 					shift?val <=> center?val $mol_vector_2d /
 						0
 						0
-					graphs /
+					graphs <= graphs /
 						<= Tiles $mol_plot_map_tiles
 							level_pyramid -3
 							tile_size_real <= tile_size 256
