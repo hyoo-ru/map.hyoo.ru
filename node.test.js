@@ -9040,6 +9040,11 @@ var $;
             obj.uri_template = () => this.tiles_uri();
             return obj;
         }
+        graphs() {
+            return [
+                this.Tiles()
+            ];
+        }
         geo_to_tile_x(id) {
             return this.Pane().geo_to_tile_x(id);
         }
@@ -9051,9 +9056,7 @@ var $;
             obj.allow_draw = () => false;
             obj.zoom = (val) => this.zoom(val);
             obj.shift = (val) => this.center(val);
-            obj.graphs = () => [
-                this.Tiles()
-            ];
+            obj.graphs = () => this.graphs();
             return obj;
         }
         ESRI() {
@@ -9083,6 +9086,13 @@ var $;
             ];
             return obj;
         }
+        main_sub() {
+            return [
+                this.Main_head(),
+                this.Pane(),
+                this.Attribution()
+            ];
+        }
         Main_head() {
             return this.Main().Head();
         }
@@ -9094,11 +9104,7 @@ var $;
                 this.Draw(),
                 this.Source()
             ];
-            obj.sub = () => [
-                this.Main_head(),
-                this.Pane(),
-                this.Attribution()
-            ];
+            obj.sub = () => this.main_sub();
             return obj;
         }
     }

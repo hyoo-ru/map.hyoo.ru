@@ -2494,6 +2494,7 @@ declare namespace $ {
         tile_size(): number;
         tiles_uri(): string;
         Tiles(): $$.$mol_plot_map_tiles;
+        graphs(): readonly any[];
         geo_to_tile_x(id: any): number;
         geo_to_tile_y(id: any): number;
         Pane(): $$.$hyoo_map_pane;
@@ -2501,6 +2502,7 @@ declare namespace $ {
         OSM(): $$.$mol_link_iconed;
         CARTO(): $$.$mol_link_iconed;
         Attribution(): $mol_view;
+        main_sub(): readonly any[];
         Main_head(): $mol_view;
         Main(): $mol_page;
     }
