@@ -2636,6 +2636,7 @@ declare namespace $.$$ {
         zoom_limit(): $mol_vector_range<number>;
         zoom(next?: number): number;
         search(): void;
+        geo_jump(coord: $mol_vector_2d<number>, zoom?: number): void;
         draw_uri(): string;
         tiles_uri(): any;
         theme(): "$mol_theme_light" | "$mol_theme_dark";

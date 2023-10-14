@@ -9443,6 +9443,10 @@ var $;
                 this.zoom(zoom);
                 this.center(center);
             }
+            geo_jump(coord, zoom = 1) {
+                this.zoom(zoom);
+                this.center(this.Pane().geo_to_tile(coord).multed0(-zoom).added1(this.center_offset()));
+            }
             draw_uri() {
                 return super.draw_uri()
                     .replace('{zoom}', this.$.$mol_state_arg.value('zoom') ?? '')
@@ -9470,6 +9474,9 @@ var $;
         __decorate([
             $mol_mem
         ], $hyoo_map.prototype, "zoom", null);
+        __decorate([
+            $mol_action
+        ], $hyoo_map.prototype, "geo_jump", null);
         __decorate([
             $mol_mem
         ], $hyoo_map.prototype, "draw_uri", null);
