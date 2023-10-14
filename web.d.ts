@@ -2362,8 +2362,10 @@ declare namespace $ {
     class $hyoo_map extends $mol_view {
         attr(): Record<string, any>;
         tiles_options(): Record<string, any>;
+        auto(): readonly any[];
         sub(): readonly any[];
         theme(): string;
+        center_offset(): any;
         query(val?: any): string;
         search(event?: any): any;
         Search(): $$.$mol_search;
