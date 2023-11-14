@@ -70,6 +70,12 @@ namespace $.$$ {
 			
 		}
 		
+		@ $mol_action
+		geo_jump( coord: $mol_vector_2d< number >, zoom = 1 ) {
+			this.zoom( zoom )
+			this.center( this.Pane().geo_to_tile( coord ).multed0( -zoom ).added1( this.center_offset() ) )
+		}
+		
 		@ $mol_mem
 		draw_uri() {
 			return super.draw_uri()

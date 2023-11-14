@@ -4,6 +4,8 @@ $hyoo_map $mol_view
 	tiles_options *
 		sketch \https://basemaps.cartocdn.com/rastertiles/voyager/{level}/{x}/{y}.png
 		photo \https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{level}/{y}/{x}
+	auto /
+		<= center_offset null
 	sub /
 		<= Main $mol_page
 			head /
