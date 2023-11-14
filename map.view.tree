@@ -1,6 +1,6 @@
 $hyoo_map $mol_view
 	attr *
-		mol_theme <= theme \$mol_theme_light
+		hyoo_map_photo <= photo? false
 	tiles_options *
 		sketch \https://basemaps.cartocdn.com/rastertiles/voyager/{level}/{x}/{y}.png
 		photo \https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{level}/{y}/{x}
@@ -12,6 +12,7 @@ $hyoo_map $mol_view
 				<= Search $mol_search
 					query?val <=> query?val \
 					submit?event <=> search?event null
+				<= Lights $mol_lights_toggle
 				<= Photo $mol_check_icon
 					hint @ \Real Photos
 					checked?val <=> photo?val false

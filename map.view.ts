@@ -87,9 +87,10 @@ namespace $.$$ {
 			return this.tiles_options()[ this.photo() ? 'photo' : 'sketch' ]
 		}
 		
-		theme() {
-			return this.photo() ? '$mol_theme_dark' : '$mol_theme_light'
-		}
+		// theme() {
+		// 	if( this.photo() ) return '$mol_theme_dark'
+		// 	return this.$.$mol_lights() ? '$mol_theme_light' : '$mol_theme_dark'
+		// }
 		
 	}
 }
