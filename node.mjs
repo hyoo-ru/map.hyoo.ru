@@ -6418,16 +6418,131 @@ var $;
 //mol/search/-css/search.view.css.ts
 ;
 "use strict";
+//mol/state/arg/arg.ts
+;
+"use strict";
 var $;
 (function ($) {
-    class $mol_icon_terrain extends $mol_icon {
-        path() {
-            return "M14,6L10.25,11L13.1,14.8L11.5,16C9.81,13.75 7,10 7,10L1,18H23L14,6Z";
+    class $mol_state_arg extends $mol_object {
+        prefix;
+        static prolog = '';
+        static separator = ' ';
+        static href(next) {
+            return next || process.argv.slice(2).join(' ');
+        }
+        static href_normal() {
+            return this.link({});
+        }
+        static dict(next) {
+            if (next !== void 0)
+                this.href(this.make_link(next));
+            var href = this.href();
+            var chunks = href.split(' ');
+            var params = {};
+            chunks.forEach(chunk => {
+                if (!chunk)
+                    return;
+                var vals = chunk.split('=').map(decodeURIComponent);
+                params[vals.shift()] = vals.join('=');
+            });
+            return params;
+        }
+        static value(key, next) {
+            if (next === void 0)
+                return this.dict()[key] ?? null;
+            this.href(this.link({ [key]: next }));
+            return next;
+        }
+        static link(next) {
+            const params = {};
+            var prev = this.dict();
+            for (var key in prev) {
+                params[key] = prev[key];
+            }
+            for (var key in next) {
+                params[key] = next[key];
+            }
+            return this.make_link(params);
+        }
+        static make_link(next) {
+            const chunks = [];
+            for (const key in next) {
+                if (next[key] !== null) {
+                    chunks.push([key, next[key]].map(encodeURIComponent).join('='));
+                }
+            }
+            return chunks.join(' ');
+        }
+        static go(next) {
+            this.href(this.make_link(next));
+        }
+        constructor(prefix = '') {
+            super();
+            this.prefix = prefix;
+        }
+        value(key, next) {
+            return this.constructor.value(this.prefix + key, next);
+        }
+        sub(postfix) {
+            return new this.constructor(this.prefix + postfix + '.');
+        }
+        link(next) {
+            const prefix = this.prefix;
+            const dict = {};
+            for (var key in next) {
+                dict[prefix + key] = next[key];
+            }
+            return this.constructor.link(dict);
         }
     }
-    $.$mol_icon_terrain = $mol_icon_terrain;
+    __decorate([
+        $mol_mem
+    ], $mol_state_arg, "href", null);
+    __decorate([
+        $mol_mem
+    ], $mol_state_arg, "href_normal", null);
+    __decorate([
+        $mol_mem
+    ], $mol_state_arg, "dict", null);
+    __decorate([
+        $mol_mem_key
+    ], $mol_state_arg, "value", null);
+    __decorate([
+        $mol_action
+    ], $mol_state_arg, "go", null);
+    $.$mol_state_arg = $mol_state_arg;
 })($ || ($ = {}));
-//mol/icon/terrain/-view.tree/terrain.view.tree.ts
+//mol/state/arg/arg.node.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function parse(theme) {
+        if (theme === 'true')
+            return true;
+        if (theme === 'false')
+            return false;
+        return null;
+    }
+    function $mol_lights(next) {
+        const arg = parse(this.$mol_state_arg.value('mol_lights'));
+        const base = false;
+        if (next === undefined) {
+            return arg ?? this.$mol_state_local.value('$mol_lights') ?? base;
+        }
+        else {
+            if (arg === null) {
+                this.$mol_state_local.value('$mol_lights', next === base ? null : next);
+            }
+            else {
+                this.$mol_state_arg.value('mol_lights', String(next));
+            }
+            return next;
+        }
+    }
+    $.$mol_lights = $mol_lights;
+})($ || ($ = {}));
+//mol/lights/lights.ts
 ;
 "use strict";
 var $;
@@ -6554,6 +6669,78 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_icon_brightness_6 extends $mol_icon {
+        path() {
+            return "M12,18V6C15.31,6 18,8.69 18,12C18,15.31 15.31,18 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z";
+        }
+    }
+    $.$mol_icon_brightness_6 = $mol_icon_brightness_6;
+})($ || ($ = {}));
+//mol/icon/brightness/6/-view.tree/6.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_lights_toggle extends $mol_check_icon {
+        Icon() {
+            return this.Lights_icon();
+        }
+        hint() {
+            return this.$.$mol_locale.text('$mol_lights_toggle_hint');
+        }
+        checked(next) {
+            return this.lights(next);
+        }
+        Lights_icon() {
+            const obj = new this.$.$mol_icon_brightness_6();
+            return obj;
+        }
+        lights(next) {
+            if (next !== undefined)
+                return next;
+            return false;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_lights_toggle.prototype, "Lights_icon", null);
+    __decorate([
+        $mol_mem
+    ], $mol_lights_toggle.prototype, "lights", null);
+    $.$mol_lights_toggle = $mol_lights_toggle;
+})($ || ($ = {}));
+//mol/lights/toggle/-view.tree/toggle.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_lights_toggle extends $.$mol_lights_toggle {
+            lights(next) {
+                return this.$.$mol_lights(next);
+            }
+        }
+        $$.$mol_lights_toggle = $mol_lights_toggle;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/lights/toggle/toggle.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_terrain extends $mol_icon {
+        path() {
+            return "M14,6L10.25,11L13.1,14.8L11.5,16C9.81,13.75 7,10 7,10L1,18H23L14,6Z";
+        }
+    }
+    $.$mol_icon_terrain = $mol_icon_terrain;
+})($ || ($ = {}));
+//mol/icon/terrain/-view.tree/terrain.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_icon_lead_pencil extends $mol_icon {
         path() {
             return "M16.84,2.73C16.45,2.73 16.07,2.88 15.77,3.17L13.65,5.29L18.95,10.6L21.07,8.5C21.67,7.89 21.67,6.94 21.07,6.36L17.9,3.17C17.6,2.88 17.22,2.73 16.84,2.73M12.94,6L4.84,14.11L7.4,14.39L7.58,16.68L9.86,16.85L10.15,19.41L18.25,11.3M4.25,15.04L2.5,21.73L9.2,19.94L8.96,17.78L6.65,17.61L6.47,15.29";
@@ -6639,103 +6826,6 @@ var $;
     $.$mol_link = $mol_link;
 })($ || ($ = {}));
 //mol/link/-view.tree/link.view.tree.ts
-;
-"use strict";
-//mol/state/arg/arg.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_state_arg extends $mol_object {
-        prefix;
-        static prolog = '';
-        static separator = ' ';
-        static href(next) {
-            return next || process.argv.slice(2).join(' ');
-        }
-        static href_normal() {
-            return this.link({});
-        }
-        static dict(next) {
-            if (next !== void 0)
-                this.href(this.make_link(next));
-            var href = this.href();
-            var chunks = href.split(' ');
-            var params = {};
-            chunks.forEach(chunk => {
-                if (!chunk)
-                    return;
-                var vals = chunk.split('=').map(decodeURIComponent);
-                params[vals.shift()] = vals.join('=');
-            });
-            return params;
-        }
-        static value(key, next) {
-            if (next === void 0)
-                return this.dict()[key] ?? null;
-            this.href(this.link({ [key]: next }));
-            return next;
-        }
-        static link(next) {
-            const params = {};
-            var prev = this.dict();
-            for (var key in prev) {
-                params[key] = prev[key];
-            }
-            for (var key in next) {
-                params[key] = next[key];
-            }
-            return this.make_link(params);
-        }
-        static make_link(next) {
-            const chunks = [];
-            for (const key in next) {
-                if (next[key] !== null) {
-                    chunks.push([key, next[key]].map(encodeURIComponent).join('='));
-                }
-            }
-            return chunks.join(' ');
-        }
-        static go(next) {
-            this.href(this.make_link(next));
-        }
-        constructor(prefix = '') {
-            super();
-            this.prefix = prefix;
-        }
-        value(key, next) {
-            return this.constructor.value(this.prefix + key, next);
-        }
-        sub(postfix) {
-            return new this.constructor(this.prefix + postfix + '.');
-        }
-        link(next) {
-            const prefix = this.prefix;
-            const dict = {};
-            for (var key in next) {
-                dict[prefix + key] = next[key];
-            }
-            return this.constructor.link(dict);
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_state_arg, "href", null);
-    __decorate([
-        $mol_mem
-    ], $mol_state_arg, "href_normal", null);
-    __decorate([
-        $mol_mem
-    ], $mol_state_arg, "dict", null);
-    __decorate([
-        $mol_mem_key
-    ], $mol_state_arg, "value", null);
-    __decorate([
-        $mol_action
-    ], $mol_state_arg, "go", null);
-    $.$mol_state_arg = $mol_state_arg;
-})($ || ($ = {}));
-//mol/state/arg/arg.node.ts
 ;
 "use strict";
 var $;
@@ -9035,7 +9125,7 @@ var $;
     class $hyoo_map extends $mol_view {
         attr() {
             return {
-                mol_theme: this.theme()
+                hyoo_map_photo: this.photo()
             };
         }
         tiles_options() {
@@ -9054,8 +9144,10 @@ var $;
                 this.Main()
             ];
         }
-        theme() {
-            return "$mol_theme_light";
+        photo(next) {
+            if (next !== undefined)
+                return next;
+            return false;
         }
         center_offset() {
             return null;
@@ -9076,10 +9168,9 @@ var $;
             obj.submit = (event) => this.search(event);
             return obj;
         }
-        photo(val) {
-            if (val !== undefined)
-                return val;
-            return false;
+        Lights() {
+            const obj = new this.$.$mol_lights_toggle();
+            return obj;
         }
         Photo_icon() {
             const obj = new this.$.$mol_icon_terrain();
@@ -9197,6 +9288,7 @@ var $;
             const obj = new this.$.$mol_page();
             obj.head = () => [
                 this.Search(),
+                this.Lights(),
                 this.Photo(),
                 this.Draw(),
                 this.Source()
@@ -9205,6 +9297,9 @@ var $;
             return obj;
         }
     }
+    __decorate([
+        $mol_mem
+    ], $hyoo_map.prototype, "photo", null);
     __decorate([
         $mol_mem
     ], $hyoo_map.prototype, "query", null);
@@ -9216,7 +9311,7 @@ var $;
     ], $hyoo_map.prototype, "Search", null);
     __decorate([
         $mol_mem
-    ], $hyoo_map.prototype, "photo", null);
+    ], $hyoo_map.prototype, "Lights", null);
     __decorate([
         $mol_mem
     ], $hyoo_map.prototype, "Photo_icon", null);
@@ -9540,9 +9635,6 @@ var $;
             tiles_uri() {
                 return this.tiles_options()[this.photo() ? 'photo' : 'sketch'];
             }
-            theme() {
-                return this.photo() ? '$mol_theme_dark' : '$mol_theme_light';
-            }
         }
         __decorate([
             $mol_mem
@@ -9573,7 +9665,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("hyoo/map/map.view.css", "[hyoo_map] {\n\tdisplay: grid;\n\tflex: 1 1 20rem;\n}\n\n[hyoo_map] > * {\n\tgrid-area: 1/1;\n}\n\n[hyoo_map_main] {\n\tdisplay: grid;\n\tcontain: strict;\n}\n\n[hyoo_map_main_head] {\n\tgrid-area: 1 / 1;\n\tflex-wrap: nowrap;\n\tmargin-bottom: auto;\n\tbackground: none;\n\tbox-shadow: none;\n}\n\n[hyoo_map_pane] {\n\twidth: 100%;\n\tgrid-area: 1 / 1;\n}\n\n[hyoo_map_attribution] {\n\tgrid-area: 1 / 1;\n\tmargin-top: auto;\n\tmargin-left: auto;\n\tpadding: var(--mol_gap_block);\n}\n");
+    $mol_style_attach("hyoo/map/map.view.css", "[hyoo_map] {\n\tdisplay: grid;\n\tflex: 1 1 20rem;\n}\n\n[hyoo_map] > * {\n\tgrid-area: 1/1;\n}\n\n[hyoo_map_main] {\n\tdisplay: grid;\n\tcontain: strict;\n}\n\n[hyoo_map_main_head] {\n\tgrid-area: 1 / 1;\n\tflex-wrap: nowrap;\n\tmargin-bottom: auto;\n\tbackground: none;\n\tbox-shadow: none;\n}\n\n[hyoo_map_pane] {\n\twidth: 100%;\n\tgrid-area: 1 / 1;\n}\n\n[hyoo_map_attribution] {\n\tgrid-area: 1 / 1;\n\tmargin-top: auto;\n\tmargin-left: auto;\n\tpadding: var(--mol_gap_block);\n}\n\n[hyoo_map_tiles_tile] {\n\tfilter: var(--mol_theme_image);\n}\n\n[hyoo_map_photo] {\n\t[hyoo_map_tiles_tile] {\n\t\tfilter: none;\n\t}\n}\n");
 })($ || ($ = {}));
 //hyoo/map/-css/map.view.css.ts
 

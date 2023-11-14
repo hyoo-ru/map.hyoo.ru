@@ -1930,9 +1930,32 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_icon_terrain extends $mol_icon {
-        path(): string;
+    class $mol_state_arg extends $mol_object {
+        prefix: string;
+        static prolog: string;
+        static separator: string;
+        static href(next?: string): string;
+        static href_normal(): string;
+        static dict(next?: {
+            [key: string]: string | null;
+        }): Readonly<{
+            [key: string]: string;
+        }>;
+        static value(key: string, next?: string | null): string | null;
+        static link(next: Record<string, string | null>): string;
+        static make_link(next: Record<string, string | null>): string;
+        static go(next: {
+            [key: string]: string | null;
+        }): void;
+        constructor(prefix?: string);
+        value(key: string, next?: string): string | null;
+        sub(postfix: string): $mol_state_arg;
+        link(next: Record<string, string | null>): string;
     }
+}
+
+declare namespace $ {
+    function $mol_lights(this: $, next?: boolean): boolean;
 }
 
 declare namespace $ {
@@ -1974,6 +1997,34 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_icon_brightness_6 extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_lights_toggle extends $mol_check_icon {
+        Icon(): $mol_icon_brightness_6;
+        hint(): string;
+        checked(next?: any): boolean;
+        Lights_icon(): $mol_icon_brightness_6;
+        lights(next?: any): boolean;
+    }
+}
+
+declare namespace $.$$ {
+    class $mol_lights_toggle extends $.$mol_lights_toggle {
+        lights(next?: boolean): boolean;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_terrain extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
     class $mol_icon_lead_pencil extends $mol_icon {
         path(): string;
     }
@@ -1998,31 +2049,6 @@ declare namespace $ {
         current(): boolean;
         event_click(event?: any): any;
         click(event?: any): any;
-    }
-}
-
-declare namespace $ {
-    class $mol_state_arg extends $mol_object {
-        prefix: string;
-        static prolog: string;
-        static separator: string;
-        static href(next?: string): string;
-        static href_normal(): string;
-        static dict(next?: {
-            [key: string]: string | null;
-        }): Readonly<{
-            [key: string]: string;
-        }>;
-        static value(key: string, next?: string | null): string | null;
-        static link(next: Record<string, string | null>): string;
-        static make_link(next: Record<string, string | null>): string;
-        static go(next: {
-            [key: string]: string | null;
-        }): void;
-        constructor(prefix?: string);
-        value(key: string, next?: string): string | null;
-        sub(postfix: string): $mol_state_arg;
-        link(next: Record<string, string | null>): string;
     }
 }
 
@@ -2503,12 +2529,12 @@ declare namespace $ {
         tiles_options(): Record<string, any>;
         auto(): readonly any[];
         sub(): readonly any[];
-        theme(): string;
+        photo(next?: any): boolean;
         center_offset(): any;
         query(val?: any): string;
         search(event?: any): any;
         Search(): $$.$mol_search;
-        photo(val?: any): boolean;
+        Lights(): $$.$mol_lights_toggle;
         Photo_icon(): $mol_icon_terrain;
         Photo(): $mol_check_icon;
         draw_uri(): string;
@@ -2650,7 +2676,6 @@ declare namespace $.$$ {
         geo_jump(coord: $mol_vector_2d<number>, zoom?: number): void;
         draw_uri(): string;
         tiles_uri(): any;
-        theme(): "$mol_theme_light" | "$mol_theme_dark";
     }
 }
 

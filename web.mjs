@@ -5777,219 +5777,6 @@ var $;
 //mol/search/-css/search.view.css.ts
 ;
 "use strict";
-var $;
-(function ($) {
-    class $mol_icon_terrain extends $mol_icon {
-        path() {
-            return "M14,6L10.25,11L13.1,14.8L11.5,16C9.81,13.75 7,10 7,10L1,18H23L14,6Z";
-        }
-    }
-    $.$mol_icon_terrain = $mol_icon_terrain;
-})($ || ($ = {}));
-//mol/icon/terrain/-view.tree/terrain.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_check extends $mol_button_minor {
-        attr() {
-            return {
-                ...super.attr(),
-                mol_check_checked: this.checked(),
-                "aria-checked": this.aria_checked(),
-                role: this.aria_role()
-            };
-        }
-        sub() {
-            return [
-                this.Icon(),
-                this.label()
-            ];
-        }
-        checked(next) {
-            if (next !== undefined)
-                return next;
-            return false;
-        }
-        aria_checked() {
-            return "false";
-        }
-        aria_role() {
-            return "checkbox";
-        }
-        Icon() {
-            return null;
-        }
-        title() {
-            return "";
-        }
-        Title() {
-            const obj = new this.$.$mol_view();
-            obj.sub = () => [
-                this.title()
-            ];
-            return obj;
-        }
-        label() {
-            return [
-                this.Title()
-            ];
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_check.prototype, "checked", null);
-    __decorate([
-        $mol_mem
-    ], $mol_check.prototype, "Title", null);
-    $.$mol_check = $mol_check;
-})($ || ($ = {}));
-//mol/check/-view.tree/check.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/check/check.css", "[mol_check] {\n\tflex: 0 0 auto;\n\tjustify-content: flex-start;\n\talign-content: center;\n\talign-items: flex-start;\n\tborder: none;\n\tfont-weight: inherit;\n\tbox-shadow: none;\n\ttext-align: left;\n\tdisplay: inline-flex;\n\tflex-wrap: nowrap;\n}\n\n[mol_check_title] {\n\tflex-shrink: 1;\n}\n");
-})($ || ($ = {}));
-//mol/check/-css/check.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_check extends $.$mol_check {
-            click(next) {
-                if (next?.defaultPrevented)
-                    return;
-                this.checked(!this.checked());
-                if (next)
-                    next.preventDefault();
-            }
-            sub() {
-                return [
-                    ...$mol_maybe(this.Icon()),
-                    ...this.label(),
-                ];
-            }
-            label() {
-                return this.title() ? super.label() : [];
-            }
-            aria_checked() {
-                return String(this.checked());
-            }
-        }
-        $$.$mol_check = $mol_check;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//mol/check/check.view.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_check_icon extends $mol_check {
-    }
-    $.$mol_check_icon = $mol_check_icon;
-})($ || ($ = {}));
-//mol/check/icon/-view.tree/icon.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_style_attach("mol/check/icon/icon.view.css", "[mol_check_icon]:where([mol_check_checked]) {\n\tcolor: var(--mol_theme_current);\n}\n");
-})($ || ($ = {}));
-//mol/check/icon/-css/icon.view.css.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_icon_lead_pencil extends $mol_icon {
-        path() {
-            return "M16.84,2.73C16.45,2.73 16.07,2.88 15.77,3.17L13.65,5.29L18.95,10.6L21.07,8.5C21.67,7.89 21.67,6.94 21.07,6.36L17.9,3.17C17.6,2.88 17.22,2.73 16.84,2.73M12.94,6L4.84,14.11L7.4,14.39L7.58,16.68L9.86,16.85L10.15,19.41L18.25,11.3M4.25,15.04L2.5,21.73L9.2,19.94L8.96,17.78L6.65,17.61L6.47,15.29";
-        }
-    }
-    $.$mol_icon_lead_pencil = $mol_icon_lead_pencil;
-})($ || ($ = {}));
-//mol/icon/lead/pencil/-view.tree/pencil.view.tree.ts
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_link extends $mol_view {
-        uri() {
-            return "";
-        }
-        dom_name() {
-            return "a";
-        }
-        uri_off() {
-            return "";
-        }
-        uri_native() {
-            return null;
-        }
-        external() {
-            return false;
-        }
-        attr() {
-            return {
-                ...super.attr(),
-                href: this.uri_toggle(),
-                title: this.hint_safe(),
-                target: this.target(),
-                download: this.file_name(),
-                mol_link_current: this.current()
-            };
-        }
-        sub() {
-            return [
-                this.title()
-            ];
-        }
-        arg() {
-            return {};
-        }
-        event() {
-            return {
-                ...super.event(),
-                click: (event) => this.click(event)
-            };
-        }
-        uri_toggle() {
-            return "";
-        }
-        hint() {
-            return "";
-        }
-        hint_safe() {
-            return this.hint();
-        }
-        target() {
-            return "_self";
-        }
-        file_name() {
-            return "";
-        }
-        current() {
-            return false;
-        }
-        event_click(event) {
-            if (event !== undefined)
-                return event;
-            return null;
-        }
-        click(event) {
-            return this.event_click(event);
-        }
-    }
-    __decorate([
-        $mol_mem
-    ], $mol_link.prototype, "event_click", null);
-    $.$mol_link = $mol_link;
-})($ || ($ = {}));
-//mol/link/-view.tree/link.view.tree.ts
-;
-"use strict";
 //mol/state/arg/arg.ts
 ;
 "use strict";
@@ -6123,6 +5910,309 @@ var $;
     self.addEventListener('hashchange', $mol_state_arg_change);
 })($ || ($ = {}));
 //mol/state/arg/arg.web.ts
+;
+"use strict";
+var $;
+(function ($) {
+    function parse(theme) {
+        if (theme === 'true')
+            return true;
+        if (theme === 'false')
+            return false;
+        return null;
+    }
+    function $mol_lights(next) {
+        const arg = parse(this.$mol_state_arg.value('mol_lights'));
+        const base = false;
+        if (next === undefined) {
+            return arg ?? this.$mol_state_local.value('$mol_lights') ?? base;
+        }
+        else {
+            if (arg === null) {
+                this.$mol_state_local.value('$mol_lights', next === base ? null : next);
+            }
+            else {
+                this.$mol_state_arg.value('mol_lights', String(next));
+            }
+            return next;
+        }
+    }
+    $.$mol_lights = $mol_lights;
+})($ || ($ = {}));
+//mol/lights/lights.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_check extends $mol_button_minor {
+        attr() {
+            return {
+                ...super.attr(),
+                mol_check_checked: this.checked(),
+                "aria-checked": this.aria_checked(),
+                role: this.aria_role()
+            };
+        }
+        sub() {
+            return [
+                this.Icon(),
+                this.label()
+            ];
+        }
+        checked(next) {
+            if (next !== undefined)
+                return next;
+            return false;
+        }
+        aria_checked() {
+            return "false";
+        }
+        aria_role() {
+            return "checkbox";
+        }
+        Icon() {
+            return null;
+        }
+        title() {
+            return "";
+        }
+        Title() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.title()
+            ];
+            return obj;
+        }
+        label() {
+            return [
+                this.Title()
+            ];
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_check.prototype, "checked", null);
+    __decorate([
+        $mol_mem
+    ], $mol_check.prototype, "Title", null);
+    $.$mol_check = $mol_check;
+})($ || ($ = {}));
+//mol/check/-view.tree/check.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/check/check.css", "[mol_check] {\n\tflex: 0 0 auto;\n\tjustify-content: flex-start;\n\talign-content: center;\n\talign-items: flex-start;\n\tborder: none;\n\tfont-weight: inherit;\n\tbox-shadow: none;\n\ttext-align: left;\n\tdisplay: inline-flex;\n\tflex-wrap: nowrap;\n}\n\n[mol_check_title] {\n\tflex-shrink: 1;\n}\n");
+})($ || ($ = {}));
+//mol/check/-css/check.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_check extends $.$mol_check {
+            click(next) {
+                if (next?.defaultPrevented)
+                    return;
+                this.checked(!this.checked());
+                if (next)
+                    next.preventDefault();
+            }
+            sub() {
+                return [
+                    ...$mol_maybe(this.Icon()),
+                    ...this.label(),
+                ];
+            }
+            label() {
+                return this.title() ? super.label() : [];
+            }
+            aria_checked() {
+                return String(this.checked());
+            }
+        }
+        $$.$mol_check = $mol_check;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/check/check.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_check_icon extends $mol_check {
+    }
+    $.$mol_check_icon = $mol_check_icon;
+})($ || ($ = {}));
+//mol/check/icon/-view.tree/icon.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    $mol_style_attach("mol/check/icon/icon.view.css", "[mol_check_icon]:where([mol_check_checked]) {\n\tcolor: var(--mol_theme_current);\n}\n");
+})($ || ($ = {}));
+//mol/check/icon/-css/icon.view.css.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_brightness_6 extends $mol_icon {
+        path() {
+            return "M12,18V6C15.31,6 18,8.69 18,12C18,15.31 15.31,18 12,18M20,15.31L23.31,12L20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31Z";
+        }
+    }
+    $.$mol_icon_brightness_6 = $mol_icon_brightness_6;
+})($ || ($ = {}));
+//mol/icon/brightness/6/-view.tree/6.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_lights_toggle extends $mol_check_icon {
+        Icon() {
+            return this.Lights_icon();
+        }
+        hint() {
+            return this.$.$mol_locale.text('$mol_lights_toggle_hint');
+        }
+        checked(next) {
+            return this.lights(next);
+        }
+        Lights_icon() {
+            const obj = new this.$.$mol_icon_brightness_6();
+            return obj;
+        }
+        lights(next) {
+            if (next !== undefined)
+                return next;
+            return false;
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_lights_toggle.prototype, "Lights_icon", null);
+    __decorate([
+        $mol_mem
+    ], $mol_lights_toggle.prototype, "lights", null);
+    $.$mol_lights_toggle = $mol_lights_toggle;
+})($ || ($ = {}));
+//mol/lights/toggle/-view.tree/toggle.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_lights_toggle extends $.$mol_lights_toggle {
+            lights(next) {
+                return this.$.$mol_lights(next);
+            }
+        }
+        $$.$mol_lights_toggle = $mol_lights_toggle;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//mol/lights/toggle/toggle.view.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_terrain extends $mol_icon {
+        path() {
+            return "M14,6L10.25,11L13.1,14.8L11.5,16C9.81,13.75 7,10 7,10L1,18H23L14,6Z";
+        }
+    }
+    $.$mol_icon_terrain = $mol_icon_terrain;
+})($ || ($ = {}));
+//mol/icon/terrain/-view.tree/terrain.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_lead_pencil extends $mol_icon {
+        path() {
+            return "M16.84,2.73C16.45,2.73 16.07,2.88 15.77,3.17L13.65,5.29L18.95,10.6L21.07,8.5C21.67,7.89 21.67,6.94 21.07,6.36L17.9,3.17C17.6,2.88 17.22,2.73 16.84,2.73M12.94,6L4.84,14.11L7.4,14.39L7.58,16.68L9.86,16.85L10.15,19.41L18.25,11.3M4.25,15.04L2.5,21.73L9.2,19.94L8.96,17.78L6.65,17.61L6.47,15.29";
+        }
+    }
+    $.$mol_icon_lead_pencil = $mol_icon_lead_pencil;
+})($ || ($ = {}));
+//mol/icon/lead/pencil/-view.tree/pencil.view.tree.ts
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_link extends $mol_view {
+        uri() {
+            return "";
+        }
+        dom_name() {
+            return "a";
+        }
+        uri_off() {
+            return "";
+        }
+        uri_native() {
+            return null;
+        }
+        external() {
+            return false;
+        }
+        attr() {
+            return {
+                ...super.attr(),
+                href: this.uri_toggle(),
+                title: this.hint_safe(),
+                target: this.target(),
+                download: this.file_name(),
+                mol_link_current: this.current()
+            };
+        }
+        sub() {
+            return [
+                this.title()
+            ];
+        }
+        arg() {
+            return {};
+        }
+        event() {
+            return {
+                ...super.event(),
+                click: (event) => this.click(event)
+            };
+        }
+        uri_toggle() {
+            return "";
+        }
+        hint() {
+            return "";
+        }
+        hint_safe() {
+            return this.hint();
+        }
+        target() {
+            return "_self";
+        }
+        file_name() {
+            return "";
+        }
+        current() {
+            return false;
+        }
+        event_click(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        click(event) {
+            return this.event_click(event);
+        }
+    }
+    __decorate([
+        $mol_mem
+    ], $mol_link.prototype, "event_click", null);
+    $.$mol_link = $mol_link;
+})($ || ($ = {}));
+//mol/link/-view.tree/link.view.tree.ts
 ;
 "use strict";
 var $;
@@ -8422,7 +8512,7 @@ var $;
     class $hyoo_map extends $mol_view {
         attr() {
             return {
-                mol_theme: this.theme()
+                hyoo_map_photo: this.photo()
             };
         }
         tiles_options() {
@@ -8441,8 +8531,10 @@ var $;
                 this.Main()
             ];
         }
-        theme() {
-            return "$mol_theme_light";
+        photo(next) {
+            if (next !== undefined)
+                return next;
+            return false;
         }
         center_offset() {
             return null;
@@ -8463,10 +8555,9 @@ var $;
             obj.submit = (event) => this.search(event);
             return obj;
         }
-        photo(val) {
-            if (val !== undefined)
-                return val;
-            return false;
+        Lights() {
+            const obj = new this.$.$mol_lights_toggle();
+            return obj;
         }
         Photo_icon() {
             const obj = new this.$.$mol_icon_terrain();
@@ -8584,6 +8675,7 @@ var $;
             const obj = new this.$.$mol_page();
             obj.head = () => [
                 this.Search(),
+                this.Lights(),
                 this.Photo(),
                 this.Draw(),
                 this.Source()
@@ -8592,6 +8684,9 @@ var $;
             return obj;
         }
     }
+    __decorate([
+        $mol_mem
+    ], $hyoo_map.prototype, "photo", null);
     __decorate([
         $mol_mem
     ], $hyoo_map.prototype, "query", null);
@@ -8603,7 +8698,7 @@ var $;
     ], $hyoo_map.prototype, "Search", null);
     __decorate([
         $mol_mem
-    ], $hyoo_map.prototype, "photo", null);
+    ], $hyoo_map.prototype, "Lights", null);
     __decorate([
         $mol_mem
     ], $hyoo_map.prototype, "Photo_icon", null);
@@ -8974,9 +9069,6 @@ var $;
             tiles_uri() {
                 return this.tiles_options()[this.photo() ? 'photo' : 'sketch'];
             }
-            theme() {
-                return this.photo() ? '$mol_theme_dark' : '$mol_theme_light';
-            }
         }
         __decorate([
             $mol_mem
@@ -9007,7 +9099,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_style_attach("hyoo/map/map.view.css", "[hyoo_map] {\n\tdisplay: grid;\n\tflex: 1 1 20rem;\n}\n\n[hyoo_map] > * {\n\tgrid-area: 1/1;\n}\n\n[hyoo_map_main] {\n\tdisplay: grid;\n\tcontain: strict;\n}\n\n[hyoo_map_main_head] {\n\tgrid-area: 1 / 1;\n\tflex-wrap: nowrap;\n\tmargin-bottom: auto;\n\tbackground: none;\n\tbox-shadow: none;\n}\n\n[hyoo_map_pane] {\n\twidth: 100%;\n\tgrid-area: 1 / 1;\n}\n\n[hyoo_map_attribution] {\n\tgrid-area: 1 / 1;\n\tmargin-top: auto;\n\tmargin-left: auto;\n\tpadding: var(--mol_gap_block);\n}\n");
+    $mol_style_attach("hyoo/map/map.view.css", "[hyoo_map] {\n\tdisplay: grid;\n\tflex: 1 1 20rem;\n}\n\n[hyoo_map] > * {\n\tgrid-area: 1/1;\n}\n\n[hyoo_map_main] {\n\tdisplay: grid;\n\tcontain: strict;\n}\n\n[hyoo_map_main_head] {\n\tgrid-area: 1 / 1;\n\tflex-wrap: nowrap;\n\tmargin-bottom: auto;\n\tbackground: none;\n\tbox-shadow: none;\n}\n\n[hyoo_map_pane] {\n\twidth: 100%;\n\tgrid-area: 1 / 1;\n}\n\n[hyoo_map_attribution] {\n\tgrid-area: 1 / 1;\n\tmargin-top: auto;\n\tmargin-left: auto;\n\tpadding: var(--mol_gap_block);\n}\n\n[hyoo_map_tiles_tile] {\n\tfilter: var(--mol_theme_image);\n}\n\n[hyoo_map_photo] {\n\t[hyoo_map_tiles_tile] {\n\t\tfilter: none;\n\t}\n}\n");
 })($ || ($ = {}));
 //hyoo/map/-css/map.view.css.ts
 
