@@ -62,7 +62,7 @@ namespace $.$$ {
 			
 			const offset = this.center_offset()
 			const pane = this.Pane()
-			const zoom = 180 * this.zoom_limit().min / res.box.transponed().map( p => pane.geo_to_tile(p) ).distance()
+			const zoom = 90 * this.zoom_limit().min / res.box.transponed().map( p => pane.geo_to_tile(p) ).distance()
 			const center = pane.geo_to_tile( res.coord ).multed0( -zoom ).added1( offset )
 			
 			this.zoom( zoom )
