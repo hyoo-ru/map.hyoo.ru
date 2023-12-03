@@ -1,6 +1,9 @@
 $hyoo_map_pane $mol_plot_pane
 	gap_hor 0
 	gap_vert 0
-	scale?val $mol_vector_2d /
+	geo_to_tile_x* 0
+	geo_to_tile_y* 0
+	geo_to_tile* $mol_vector_2d<number>
+	scale?val $mol_vector_2d<number> /
 		<= zoom
 		<= zoom

@@ -32,7 +32,7 @@ $hyoo_map $mol_view
 					geo_to_tile_y!val => geo_to_tile_y!val
 					allow_draw false
 					zoom?val <=> zoom?val 1
-					shift?val <=> center?val $mol_vector_2d /
+					shift?val <=> center?val $mol_vector_2d<number> /
 						0
 						0
 					graphs <= graphs /
