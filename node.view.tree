@@ -1,3 +1,6 @@
+$mol_theme_auto $mol_plugin
+	attr * mol_theme <= theme \
+
 $mol_pop $mol_view
 	showed? false
 	align_vert \
@@ -614,6 +617,8 @@ $hyoo_map $mol_view
 		photo \https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{level}/{y}/{x}
 	auto /
 		<= center_offset null
+	plugins /
+		<= Theme $mol_theme_auto
 	sub /
 		<= Main $mol_page
 			head /
