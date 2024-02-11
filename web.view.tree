@@ -281,18 +281,18 @@ $mol_link $mol_view
 
 $mol_image $mol_view
 	dom_name \img
-	field *
+	field *any
 		^
 		src <= uri \
 		alt <= title
 		loading <= loading \eager
 		decoding <= decoding \async
 		crossOrigin <= cors null
-	attr *
+	attr *any
 		^
-		width <= natural_width? 0
-		height <= natural_height? 0
-	event *
+		width <= natural_width 0
+		height <= natural_height 0
+	event *any
 		load? <=> load? null
 	minimal_width 16
 	minimal_height 16
@@ -335,11 +335,11 @@ $mol_plot_graph $mol_svg_group
 		^
 		color <= color \
 	-
-	viewport $mol_vector_2d /
-		<= viewport_x $mol_vector_range /
+	viewport $mol_vector_2d<$mol_vector_range<number>> /
+		<= viewport_x $mol_vector_range<number> /
 			Infinity
 			-Infinity
-		<= viewport_y $mol_vector_range /
+		<= viewport_y $mol_vector_range<number> /
 			Infinity
 			-Infinity
 	shift /number
@@ -348,31 +348,31 @@ $mol_plot_graph $mol_svg_group
 	scale /number
 		1
 		1
-	cursor_position $mol_vector_2d /
+	cursor_position $mol_vector_2d<number> /
 		NaN
 		NaN
-	dimensions_pane $mol_vector_2d /
-		<= dimensions_pane_x $mol_vector_range /
+	dimensions_pane $mol_vector_2d<$mol_vector_range<number>> /
+		<= dimensions_pane_x $mol_vector_range<number> /
 			Infinity
 			-Infinity
-		<= dimensions_pane_y $mol_vector_range /
+		<= dimensions_pane_y $mol_vector_range<number> /
 			Infinity
 			-Infinity
-	dimensions $mol_vector_2d /
-		<= dimensions_x $mol_vector_range /
+	dimensions $mol_vector_2d<$mol_vector_range<number>> /
+		<= dimensions_x $mol_vector_range<number> /
 			Infinity
 			-Infinity
-		<= dimensions_y $mol_vector_range /
+		<= dimensions_y $mol_vector_range<number> /
 			Infinity
 			-Infinity
-	size_real $mol_vector_2d /
+	size_real $mol_vector_2d<number> /
 		0
 		0
-	gap $mol_vector_2d /
-		<= gap_x $mol_vector_range /
+	gap $mol_vector_2d<$mol_vector_range<number>> /
+		<= gap_x $mol_vector_range<number> /
 			0
 			0
-		<= gap_y $mol_vector_range /
+		<= gap_y $mol_vector_range<number> /
 			0
 			0
 	repos_x* 0
@@ -437,17 +437,17 @@ $mol_touch $mol_plugin
 	allow_pan true
 	allow_zoom true
 	action_type? \
-	action_point? $mol_vector_2d /
+	action_point? $mol_vector_2d<number> /
 		NaN
 		NaN
 	-
 	start_pan? /
 		0
 		0
-	pan? $mol_vector_2d /
+	pan? $mol_vector_2d<number> /
 		0
 		0
-	pointer_center $mol_vector_2d /
+	pointer_center $mol_vector_2d<number> /
 		NaN
 		NaN
 	-
@@ -498,60 +498,60 @@ $mol_plot_pane $mol_svg_root
 	gap_right <= gap_hor
 	gap_top <= gap_vert
 	gap_bottom <= gap_vert
-	gap $mol_vector_2d /
-		<= gap_x $mol_vector_range /
+	gap $mol_vector_2d<$mol_vector_range<number>> /
+		<= gap_x $mol_vector_range<number> /
 			<= gap_left
 			<= gap_right
-		<= gap_y $mol_vector_range /
+		<= gap_y $mol_vector_range<number> /
 			<= gap_bottom
 			<= gap_top
 	-
-	shift_limit $mol_vector_2d /
-		<= shift_limit_x $mol_vector_range /
+	shift_limit $mol_vector_2d<$mol_vector_range<number>> /
+		<= shift_limit_x $mol_vector_range<number> /
 			0
 			0
-		<= shift_limit_y $mol_vector_range /
+		<= shift_limit_y $mol_vector_range<number> /
 			0
 			0
-	shift_default $mol_vector_2d /
+	shift_default $mol_vector_2d<number> /
 		0
 		0
-	shift? $mol_vector_2d /
+	shift? $mol_vector_2d<number> /
 		0
 		0
-	scale_limit $mol_vector_2d /
-		<= scale_limit_x $mol_vector_range /
+	scale_limit $mol_vector_2d<$mol_vector_range<number>> /
+		<= scale_limit_x $mol_vector_range<number> /
 			0
 			Infinity
-		<= scale_limit_y $mol_vector_range /
+		<= scale_limit_y $mol_vector_range<number> /
 			0
 			-Infinity
-	scale_default $mol_vector_2d /
+	scale_default $mol_vector_2d<number> /
 		0
 		0
-	scale? $mol_vector_2d /
+	scale? $mol_vector_2d<number> /
 		1
 		-1
 	scale_x? 1
 	scale_y? -1
-	size $mol_vector_2d /
+	size $mol_vector_2d<number> /
 		0
 		0
-	size_real $mol_vector_2d /
+	size_real $mol_vector_2d<number> /
 		1
 		1
-	dimensions $mol_vector_2d /
-		<= dimensions_x $mol_vector_range /
+	dimensions $mol_vector_2d<$mol_vector_range<number>> /
+		<= dimensions_x $mol_vector_range<number> /
 			Infinity
 			-Infinity
-		<= dimensions_y $mol_vector_range /
+		<= dimensions_y $mol_vector_range<number> /
 			Infinity
 			-Infinity
-	dimensions_viewport $mol_vector_2d /
-		<= dimensions_viewport_x $mol_vector_range /
+	dimensions_viewport $mol_vector_2d<$mol_vector_range<number>> /
+		<= dimensions_viewport_x $mol_vector_range<number> /
 			Infinity
 			-Infinity
-		<= dimensions_viewport_y $mol_vector_range /
+		<= dimensions_viewport_y $mol_vector_range<number> /
 			Infinity
 			-Infinity
 	-
@@ -579,7 +579,10 @@ $mol_plot_pane $mol_svg_root
 $hyoo_map_pane $mol_plot_pane
 	gap_hor 0
 	gap_vert 0
-	scale?val $mol_vector_2d /
+	geo_to_tile_x* 0
+	geo_to_tile_y* 0
+	geo_to_tile* $mol_vector_2d<number>
+	scale?val $mol_vector_2d<number> /
 		<= zoom
 		<= zoom
 
@@ -645,7 +648,7 @@ $hyoo_map $mol_view
 					geo_to_tile_y!val => geo_to_tile_y!val
 					allow_draw false
 					zoom?val <=> zoom?val 1
-					shift?val <=> center?val $mol_vector_2d /
+					shift?val <=> center?val $mol_vector_2d<number> /
 						0
 						0
 					graphs <= graphs /
