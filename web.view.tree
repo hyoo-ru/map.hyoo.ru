@@ -642,6 +642,7 @@ $mol_page $mol_view
 			sub <= foot /$mol_view
 
 $hyoo_map $mol_view
+	title \Giper Map
 	attr *
 		hyoo_map_photo <= photo? false
 	tiles_options *

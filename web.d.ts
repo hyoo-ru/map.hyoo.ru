@@ -4483,6 +4483,7 @@ declare namespace $ {
 		Attribution( ): $mol_view
 		main_sub( ): readonly(any)[]
 		Main( ): $mol_page
+		title( ): string
 		attr( ): ({ 
 			'hyoo_map_photo': ReturnType< $hyoo_map['photo'] >,
 		}) 

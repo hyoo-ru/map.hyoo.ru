@@ -10432,6 +10432,9 @@ var $;
 			(obj.sub) = () => ((this.main_sub()));
 			return obj;
 		}
+		title(){
+			return "Giper Map";
+		}
 		attr(){
 			return {"hyoo_map_photo": (this.photo())};
 		}
