@@ -1,4 +1,5 @@
 $hyoo_map $mol_view
+	title \Giper Map
 	attr *
 		hyoo_map_photo <= photo? false
 	tiles_options *
