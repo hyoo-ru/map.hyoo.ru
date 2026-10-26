@@ -76,12 +76,12 @@ namespace $.$$ {
 			this.center( this.Pane().geo_to_tile( coord ).multed0( -zoom ).added1( this.center_offset() ) )
 		}
 		
-		@ $mol_mem
-		draw_uri() {
-			return super.draw_uri()
-				.replace( '{zoom}', this.$.$mol_state_arg.value( 'zoom' ) ?? '' )
-				.replace( '{center}', this.$.$mol_state_arg.value( 'center' ) ?? '' )
-		}
+		// @ $mol_mem
+		// draw_uri() {
+		// 	return super.draw_uri()
+		// 		.replace( '{zoom}', this.$.$mol_state_arg.value( 'zoom' ) ?? '' )
+		// 		.replace( '{center}', this.$.$mol_state_arg.value( 'center' ) ?? '' )
+		// }
 		
 		tiles_uri() {
 			return this.tiles_options()[ this.photo() ? 'photo' : 'sketch' ]
