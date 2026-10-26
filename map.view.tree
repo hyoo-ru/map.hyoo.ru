@@ -2,7 +2,7 @@ $hyoo_map $mol_view
 	attr *
 		hyoo_map_photo <= photo? false
 	tiles_options *
-		sketch \https://basemaps.cartocdn.com/rastertiles/voyager/{level}/{x}/{y}.png
+		sketch \https://basemaps.cartocdn.com/rastertiles/voyager/{level}/{x}/{y}.png?key=cb1_4v16_1_a33c33a2599cee21cb0c699f
 		photo \https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{level}/{y}/{x}
 	auto /
 		<= center_offset null
@@ -13,7 +13,7 @@ $hyoo_map $mol_view
 			head /
 				<= Search $mol_search
 					query?val <=> query?val \
-					submit?event <=> search?event null
+					submit? <=> search? null
 				<= Lights $mol_lights_toggle
 				<= Photo $mol_check_icon
 					hint @ \Real Photos
